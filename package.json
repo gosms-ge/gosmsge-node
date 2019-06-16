@@ -1,0 +1,29 @@
+{
+  "name": "gosmsge-node",
+  "version": "1.0.1",
+  "description": "Sms send package for GOSMS.ge",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sms",
+    "sms-api",
+    "gosms.ge",
+    "sms-sdk",
+    "sms-gateway",
+    "sms-client"
+  ],
+  "author": {
+    "name": "gosms.ge"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
