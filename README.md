@@ -11,13 +11,13 @@ For any questions, please contact us at info@gosms.ge
 # Installation
 
 ```bash
-$ npm install gosmsge-node --save
+$ npm install @gosmsge/gosmsge-node --save
 ```
 
 # Send a message with Classic type
 
 ```js
-const SMS = require('gosmsge-node')
+const SMS = require('@gosmsge/gosmsge-node')
 
 const sms = new SMS('api_key')
 
@@ -29,7 +29,7 @@ sms.send('995555555555', 'Hello!',  'GOSMS.GE')
 # Check status of message
 
 ```js
-const SMS = require('gosmsge-node')
+const SMS = require('@gosmsge/gosmsge-node')
 
 const sms = new SMS('api_key')
 
@@ -41,7 +41,7 @@ sms.status('message_id')
 # Check balance
 
 ```js
-const SMS = require('gosmsge-node')
+const SMS = require('@gosmsge/gosmsge-node')
 
 const sms = new SMS('api_key')
 

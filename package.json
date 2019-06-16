@@ -1,6 +1,6 @@
 {
-  "name": "gosmsge-node",
-  "version": "1.0.1",
+  "name": "@gosmsge/gosmsge-node",
+  "version": "1.0.3",
   "description": "Sms send package for GOSMS.ge",
   "main": "index.js",
   "directories": {
@@ -18,16 +18,19 @@
     "sms-gateway",
     "sms-client"
   ],
-  "author": {
-    "name": "gosms.ge"
-  },
+  "author": "gosms.ge",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gosms-ge/gosmsge-node.git"
+    "url": "git+https://github.com/gosms-ge/gosmsge-node.git"
   },
   "license": "ISC",
   "dependencies": {
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/gosms-ge/gosmsge-node/issues"
+  },
+  "homepage": "https://github.com/gosms-ge/gosmsge-node#readme",
+  "devDependencies": {}
 }
