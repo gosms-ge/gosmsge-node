@@ -33,7 +33,7 @@ class SMS {  // Main class
         }
         this.action = 'send-sms';
         try {
-            const response = await request(encodeURIComponent(`${this.gateway_url}?action=${this.action}&api_key=${this.apiKey}&to=${phoneNumbers}&from=${senderName}&sms=${text}`), { json: true }, (err, res, body) => {
+            const response = await request(`${this.gateway_url}?action=${this.action}&api_key=${this.apiKey}&to=${phoneNumbers}&from=${senderName}&sms=${encodeURI(text)}`, { json: true }, (err, res, body) => {
                 if (err) { return err; }
                 return body
             });
