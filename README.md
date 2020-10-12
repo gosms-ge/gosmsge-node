@@ -1,3 +1,5 @@
+![Node.js Package](https://github.com/gosms-ge/gosmsge-node/workflows/Node.js%20Package/badge.svg)
+
 # GOSMS.GE Node JS SMS Send
 
 Node JS client module to send SMS messages using GOSMS.GE SMS Gateway.
