@@ -10,7 +10,7 @@ class SMS {  // Main class
         }
 
         this.apiKey = api_key;
-        this.gateway_url= 'https://gosms.ge/sms/api';
+        this.gateway_url= 'https://api.gosms.ge/api';
         this.action = null;
 
     }
@@ -31,9 +31,9 @@ class SMS {  // Main class
         if (!senderName || typeof senderName != 'string') {
             throw new TypeError('Third argument senderName is required, it must be string')
         }
-        this.action = 'send-sms';
+        this.action = 'sendsms';
         try {
-            const response = await request(`${this.gateway_url}?action=${this.action}&api_key=${this.apiKey}&to=${phoneNumbers}&from=${senderName}&sms=${encodeURI(text)}`, { json: true }, (err, res, body) => {
+            const response = await request(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}&to=${phoneNumbers}&from=${senderName}&text=${encodeURI(text)}`, { json: true }, (err, res, body) => {
                 if (err) { return err; }
                 return body
             });
@@ -48,9 +48,9 @@ class SMS {  // Main class
         if (!messageId) {
             throw new TypeError('Message Id is required, it should be string')
         }
-        this.action = 'check-sms';
+        this.action = 'checksms';
         try {
-            const response = await request(`${this.gateway_url}?action=${this.action}&api_key=${this.apiKey}&messageid=${messageId}`, { json: true }, (err, res, body) => {
+            const response = await request(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}&messageId=${messageId}`, { json: true }, (err, res, body) => {
                 if (err) { return err; }
                 return body
             });
@@ -62,9 +62,9 @@ class SMS {  // Main class
 
     // check balance
     async balance() {
-        this.action = 'check-balance';
+        this.action = 'checkbalance';
         try {
-            const response = await request(`${this.gateway_url}?action=${this.action}&api_key=${this.apiKey}&response=json`, { json: true }, (err, res, body) => {
+            const response = await request(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, { json: true }, (err, res, body) => {
                 if (err) { return err; }
                 return body
             });
