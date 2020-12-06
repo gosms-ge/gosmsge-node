@@ -1,4 +1,3 @@
-// Send sms with Smart or SmartPro type
 const SMS = require('../')
 
 const sms = new SMS('RWxHRkd6aXlBZ3NOaUdMSWpGTkw=')

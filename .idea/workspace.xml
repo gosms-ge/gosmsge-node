@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/check-balance.js" beforeDir="false" afterPath="$PROJECT_DIR$/examples/check-balance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/check-sms.js" beforeDir="false" afterPath="$PROJECT_DIR$/examples/check-sms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/quick-sms.js" beforeDir="false" afterPath="$PROJECT_DIR$/examples/quick-sms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,13 +26,26 @@
   </component>
   <component name="ProjectId" id="1buG61xYigeAaPxXydA7fXBqwAH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="H:/angular5/presale" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="C:/Program Files/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -35,18 +53,24 @@
       <recent name="H:\node\gosmsge-node\examples" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <item itemvalue="npm.start" />
       </list>
-    </option>
+    </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -61,7 +85,8 @@
       <workItem from="1589474387017" duration="2831000" />
       <workItem from="1590685661147" duration="2203000" />
       <workItem from="1590785726168" duration="599000" />
-      <workItem from="1602462589104" duration="776000" />
+      <workItem from="1602462589104" duration="1995000" />
+      <workItem from="1607264021794" duration="1355000" />
     </task>
     <task id="LOCAL-00001" summary="feat(API-endpoint): change endpoint">
       <created>1602462640667</created>
@@ -77,28 +102,52 @@
       <option name="project" value="LOCAL" />
       <updated>1602463217036</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix: publish">
+      <created>1602463394711</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1602463394711</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat(API-endpoint): change endpoint" />
     <MESSAGE value="fix: publish" />
     <option name="LAST_COMMIT_MESSAGE" value="fix: publish" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1899" height="187" key="GridCell.Tab.0.bottom" timestamp="1607265548210">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="187" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607265548210" />
+    <state width="1899" height="187" key="GridCell.Tab.0.center" timestamp="1607265548210">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="187" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607265548210" />
+    <state width="1899" height="187" key="GridCell.Tab.0.left" timestamp="1607265548210">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="187" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607265548210" />
+    <state width="1899" height="187" key="GridCell.Tab.0.right" timestamp="1607265548210">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="187" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607265548210" />
   </component>
 </project>
