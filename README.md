@@ -1,4 +1,4 @@
-![Node.js Package](https://github.com/gosmsge/gosmsge-node/workflows/Node.js%20Package/badge.svg)
+![Node.js Package](https://github.com/gosms-ge/gosmsge-node/workflows/Node.js%20Package/badge.svg)
 
 # GOSMS.GE Node JS SMS Send
 
