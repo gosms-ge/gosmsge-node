@@ -1,4 +1,5 @@
 ![Node.js Package](https://github.com/gosms-ge/gosmsge-node/workflows/Node.js%20Package/badge.svg)
+![AppVeyor](https://img.shields.io/appveyor/build/gosms-ge/gosmsge-node)
 [![CircleCI](https://circleci.com/gh/gosms-ge/gosmsge-node.svg?style=svg)](https://circleci.com/gh/gosms-ge/gosmsge-node)
 
 # GOSMS.GE Node JS SMS Send
