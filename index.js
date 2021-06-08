@@ -96,7 +96,7 @@ class SMS {  // Main class
         if (!code || typeof code != 'string') {
             throw new TypeError('Third argument code is required, it must be string')
         }
-        this.action = 'otp/send';
+        this.action = 'otp/verify';
         try {
             const jsonDataObj = {
                 api_key: this.apiKey,
