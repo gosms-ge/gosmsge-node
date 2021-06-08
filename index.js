@@ -101,8 +101,8 @@ class SMS {  // Main class
             const jsonDataObj = {
                 api_key: this.apiKey,
                 phone: phoneNumbers,
-                hash,
-                code
+                hash: hash,
+                code: code
             };
             return await request.post({
                 url:     `${this.gateway_url}/${this.action}`,
