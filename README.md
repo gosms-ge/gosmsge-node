@@ -53,6 +53,48 @@ sms.balance()
   .catch(err => console.log(err.message))
 ```
 
+OTP SMS send
+```js
+const SMS = require('@gosmsge/gosmsge-node')
+
+const sms = new SMS('api_key')
+
+sms.sendOtp('995555555555')
+  .then(body => console.log(body)) 
+  .catch(err => console.log(err.message))
+```
+Response
+```js
+{
+  "success": true,
+  "hash": "hashkey",
+  "to": "995123456789",
+  "sendAt": "2020-05-24T09:56:02.449Z",
+  "encode": "default",
+  "segment": 1,
+  "smsCharacters": 57
+}
+```
+
+OTP SMS verification
+
+```js
+const SMS = require('@gosmsge/gosmsge-node')
+
+const sms = new SMS('api_key')
+
+sms.verifyOtp('995555555555', '23423uhe784375yf234n59', 1234) // phone number, hash, code
+  .then(body => console.log(body)) 
+  .catch(err => console.log(err.message))
+```
+Response
+```js
+{
+  "success": true,
+  "verify": true
+}
+```
+
 # More info
 
 You can check out our website https://www.gosms.ge
