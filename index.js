@@ -52,6 +52,71 @@ class SMS {  // Main class
         }
     }
 
+    // send OTP sms message
+    async sendOtp(phoneNumbers) {
+        if (phoneNumbers) {
+            if (typeof phoneNumbers !== 'string') {
+                throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
+            }
+        } else {
+            throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
+        }
+
+        this.action = 'otp/send';
+        try {
+            const jsonDataObj = {
+                api_key: this.apiKey,
+                phone: phoneNumbers
+            };
+            return await request.post({
+                url:     `${this.gateway_url}/${this.action}`,
+                body: jsonDataObj,
+                json: true
+            }, (err, res, body) => {
+                if (err) { return err; }
+                return body
+            });
+        } catch (err) {
+            throw err
+        }
+    }
+
+    // verify OTP sms
+    async verifyOtp(phoneNumbers, hash, code) {
+        if (phoneNumbers) {
+            if (typeof phoneNumbers !== 'string') {
+                throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
+            }
+        } else {
+            throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
+        }
+        if (!hash || typeof hash != 'string') {
+            throw new TypeError('Second argument hash is required, it must be string')
+        }
+        if (!code || typeof code != 'string') {
+            throw new TypeError('Third argument code is required, it must be string')
+        }
+        this.action = 'otp/send';
+        try {
+            const jsonDataObj = {
+                api_key: this.apiKey,
+                phone: phoneNumbers,
+                hash,
+                code
+            };
+            return await request.post({
+                url:     `${this.gateway_url}/${this.action}`,
+                body: jsonDataObj,
+                json: true
+            }, (err, res, body) => {
+                if (err) { return err; }
+                return body
+            });
+        } catch (err) {
+            throw err
+        }
+    }
+
     // check message status
     async status(messageId) {
         if (!messageId) {
