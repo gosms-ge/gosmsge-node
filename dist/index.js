@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SMS = void 0;
+const axios_1 = require("axios");
 const request = require('request-promise');
 const SMS = class SMS {
     constructor(api_key) {
@@ -48,15 +49,10 @@ const SMS = class SMS {
                     from: senderName,
                     text: text
                 };
-                return yield request.post({
-                    url: `${this.gateway_url}/${this.action}`,
-                    body: jsonDataObj,
-                    json: true
-                }, (err, res, body) => {
-                    if (err) {
-                        return err;
-                    }
-                    return body;
+                return yield axios_1.default.post(`${this.gateway_url}/${this.action}`, jsonDataObj, { headers: { 'Content-type': 'application/json' } })
+                    .then((res) => res.data)
+                    .catch((error) => {
+                    throw error;
                 });
             }
             catch (err) {
@@ -81,15 +77,10 @@ const SMS = class SMS {
                     api_key: this.apiKey,
                     phone: phoneNumbers
                 };
-                return yield request.post({
-                    url: `${this.gateway_url}/${this.action}`,
-                    body: jsonDataObj,
-                    json: true
-                }, (err, res, body) => {
-                    if (err) {
-                        return err;
-                    }
-                    return body;
+                return yield axios_1.default.post(`${this.gateway_url}/${this.action}`, jsonDataObj, { headers: { 'Content-type': 'application/json' } })
+                    .then((res) => res.data)
+                    .catch((error) => {
+                    throw error;
                 });
             }
             catch (err) {
@@ -122,15 +113,10 @@ const SMS = class SMS {
                     hash: hash,
                     code: code
                 };
-                return yield request.post({
-                    url: `${this.gateway_url}/${this.action}`,
-                    body: jsonDataObj,
-                    json: true
-                }, (err, res, body) => {
-                    if (err) {
-                        return err;
-                    }
-                    return body;
+                return yield axios_1.default.post(`${this.gateway_url}/${this.action}`, jsonDataObj, { headers: { 'Content-type': 'application/json' } })
+                    .then((res) => res.data)
+                    .catch((error) => {
+                    throw error;
                 });
             }
             catch (err) {
@@ -146,13 +132,11 @@ const SMS = class SMS {
             }
             this.action = 'checksms';
             try {
-                const response = yield request(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}&messageId=${messageId}`, { json: true }, (err, res, body) => {
-                    if (err) {
-                        return err;
-                    }
-                    return body;
+                return yield axios_1.default.post(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}&messageId=${messageId}`, {}, { headers: { 'Content-type': 'application/json' } })
+                    .then((res) => res.data)
+                    .catch((error) => {
+                    throw error;
                 });
-                return response;
             }
             catch (err) {
                 throw err;
@@ -164,13 +148,11 @@ const SMS = class SMS {
         return __awaiter(this, void 0, void 0, function* () {
             this.action = 'checkbalance';
             try {
-                const response = yield request(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, { json: true }, (err, res, body) => {
-                    if (err) {
-                        return err;
-                    }
-                    return body;
+                return yield axios_1.default.post(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, {}, { headers: { 'Content-type': 'application/json' } })
+                    .then((res) => res.data)
+                    .catch((error) => {
+                    throw error;
                 });
-                return response;
             }
             catch (err) {
                 throw err;

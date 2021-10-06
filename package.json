@@ -4,6 +4,7 @@
   "description": "Sms send package for GOSMS.ge",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "commonjs",
   "files": [
     "/dist"
   ],
@@ -28,6 +29,7 @@
   },
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.22.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
@@ -35,5 +37,7 @@
     "url": "https://github.com/gosms-ge/gosmsge-node/issues"
   },
   "homepage": "https://github.com/gosms-ge/gosmsge-node#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "^16.10.3"
+  }
 }

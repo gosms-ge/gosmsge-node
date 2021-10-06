@@ -1,62 +1,30 @@
+import axios, {AxiosError, AxiosResponse} from "axios";
+import {
+    ActionType, BalanceResponse,
+    CheckStatusResponse,
+    ErrorMessageCode,
+    ISMS,
+    MessageId,
+    OtpSendResponse,
+    OtpVerifyResponse,
+    SmsError,
+    SmsSendResponse
+} from "./lib";
+
 const request = require('request-promise');
+
+
+
 interface SMSInterface {
     new(api_key: string): ISMS;
 }
-export interface ISMS {
-    send(phoneNumbers: string | string[], text: string, senderName: string): Promise<any>;
 
-    sendOtp(phoneNumbers: string): Promise<any>;
 
-    verifyOtp(phoneNumbers: string, hash: string, code: string): Promise<any>;
-
-    status(messageId: string): Promise<any>;
-
-    balance(): Promise<any>;
-}
-
-export interface SmsSendResponse {
-    success: boolean;
-    userId: string;
-    messageId: number;
-    from: string;
-    to: string;
-    text: string;
-    newService: boolean;
-    msgCount: number;
-    sendAt: Date;
-    balance: number;
-    encode: string;
-    segment: number;
-    smsCharacters: number;
-}
-
-export interface CheckStatusResponse {
-    success: boolean;
-    messageId: number;
-    from: string;
-    to: string;
-    text: string;
-    encode: string;
-    sendAt: Date;
-    segment: number;
-    smsCharacters: number;
-    status: string;
-}
-
-export interface BalanceResponse {
-    success: boolean;
-    balance: number;
-}
-
-export interface SmsError {
-    errorCode: number;
-    message: string;
-}
 
 const SMS: SMSInterface = class SMS implements ISMS {  // Main class
     private readonly apiKey: string
     private readonly gateway_url: string
-    private action: string
+    private action: ActionType
 
     constructor(api_key: string) {
         if (!api_key) {
@@ -97,23 +65,18 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
                 from: senderName,
                 text: text
             };
-            return await request.post({
-                url: `${this.gateway_url}/${this.action}`,
-                body: jsonDataObj,
-                json: true
-            }, (err, res, body) => {
-                if (err) {
-                    return err;
-                }
-                return body
-            });
+            return await axios.post<any>(`${this.gateway_url}/${this.action}`, jsonDataObj, {headers: {'Content-type': 'application/json'}})
+                .then((res: AxiosResponse<SmsSendResponse>) => res.data)
+                .catch( (error: AxiosError<SmsError>) => {
+                    throw error
+                });
         } catch (err) {
             throw err
         }
     }
 
     // send OTP sms message
-    async sendOtp(phoneNumbers: string): Promise<any  | SmsError> {
+    async sendOtp(phoneNumbers: string): Promise<OtpSendResponse | SmsError> {
         if (phoneNumbers) {
             if (typeof phoneNumbers !== 'string') {
                 throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
@@ -128,23 +91,18 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
                 api_key: this.apiKey,
                 phone: phoneNumbers
             };
-            return await request.post({
-                url: `${this.gateway_url}/${this.action}`,
-                body: jsonDataObj,
-                json: true
-            }, (err, res, body) => {
-                if (err) {
-                    return err;
-                }
-                return body
-            });
+            return await axios.post<any>(`${this.gateway_url}/${this.action}`, jsonDataObj, {headers: {'Content-type': 'application/json'}})
+                .then((res: AxiosResponse<OtpSendResponse>) => res.data)
+                .catch( (error: AxiosError<SmsError>) => {
+                    throw error
+                });
         } catch (err) {
             throw err
         }
     }
 
     // verify OTP sms
-    async verifyOtp(phoneNumbers: string, hash: string, code: string) {
+    async verifyOtp(phoneNumbers: string, hash: string, code: string): Promise<OtpVerifyResponse | SmsError> {
         if (phoneNumbers) {
             if (typeof phoneNumbers !== 'string') {
                 throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
@@ -166,55 +124,56 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
                 hash: hash,
                 code: code
             };
-            return await request.post({
-                url: `${this.gateway_url}/${this.action}`,
-                body: jsonDataObj,
-                json: true
-            }, (err, res, body) => {
-                if (err) {
-                    return err;
-                }
-                return body
-            });
+            return await axios.post<any>(`${this.gateway_url}/${this.action}`, jsonDataObj, {headers: {'Content-type': 'application/json'}})
+                .then((res: AxiosResponse<OtpVerifyResponse>) => res.data)
+                .catch( (error: AxiosError<SmsError>) => {
+                    throw error
+                });
         } catch (err) {
             throw err
         }
     }
 
     // check message status
-    async status(messageId: string): Promise<CheckStatusResponse  | SmsError> {
+    async status(messageId: string): Promise<CheckStatusResponse | SmsError> {
         if (!messageId) {
             throw new TypeError('Message Id is required, it should be string')
         }
         this.action = 'checksms';
         try {
-            const response = await request(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}&messageId=${messageId}`, {json: true}, (err, res, body) => {
-                if (err) {
-                    return err;
-                }
-                return body
-            });
-            return response
+            return await axios.post<any>(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}&messageId=${messageId}`, {}, {headers: {'Content-type': 'application/json'}})
+                .then((res: AxiosResponse<CheckStatusResponse>) => res.data)
+                .catch( (error: AxiosError<SmsError>) => {
+                    throw error
+                });
         } catch (err) {
             throw err
         }
     }
 
     // check balance
-    async balance(): Promise<BalanceResponse  | SmsError> {
+    async balance(): Promise<BalanceResponse | SmsError> {
         this.action = 'checkbalance';
         try {
-            const response = await request(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, {json: true}, (err, res, body) => {
-                if (err) {
-                    return err;
-                }
-                return body
-            });
-            return response
+            return await axios.post<any>(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, {}, {headers: {'Content-type': 'application/json'}})
+                .then((res: AxiosResponse<BalanceResponse>) => res.data)
+                .catch( (error: AxiosError<SmsError>) => {
+                    throw error
+                });
         } catch (err) {
             throw err
         }
     }
 }
 
-export {SMS}
+export {
+    SMS,
+    BalanceResponse,
+    SmsSendResponse,
+    CheckStatusResponse,
+    OtpSendResponse,
+    OtpVerifyResponse,
+    SmsError,
+    ErrorMessageCode,
+    MessageId
+}

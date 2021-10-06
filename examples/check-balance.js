@@ -1,4 +1,4 @@
-const SMS = require('../')
+const {SMS} = require('../dist')
 
 const sms = new SMS('RWxHRkd6aXlBZ3NOaUdMSWpGTkw=')
 
