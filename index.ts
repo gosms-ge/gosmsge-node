@@ -48,6 +48,11 @@ export interface BalanceResponse {
     balance: number;
 }
 
+export interface SmsError {
+    errorCode: number;
+    message: string;
+}
+
 const SMS: SMSInterface = class SMS implements ISMS {  // Main class
     private readonly apiKey: string
     private readonly gateway_url: string
@@ -69,7 +74,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
 
 
     // send sms message
-    async send(phoneNumbers: string | string[], text: string, senderName: string): Promise<SmsSendResponse> {
+    async send(phoneNumbers: string | string[], text: string, senderName: string): Promise<SmsSendResponse | SmsError> {
         if (phoneNumbers) {
             if (typeof phoneNumbers !== 'string') {
                 throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
@@ -108,7 +113,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
     }
 
     // send OTP sms message
-    async sendOtp(phoneNumbers: string): Promise<any> {
+    async sendOtp(phoneNumbers: string): Promise<any  | SmsError> {
         if (phoneNumbers) {
             if (typeof phoneNumbers !== 'string') {
                 throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
@@ -177,7 +182,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
     }
 
     // check message status
-    async status(messageId: string): Promise<CheckStatusResponse> {
+    async status(messageId: string): Promise<CheckStatusResponse  | SmsError> {
         if (!messageId) {
             throw new TypeError('Message Id is required, it should be string')
         }
@@ -196,7 +201,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
     }
 
     // check balance
-    async balance(): Promise<BalanceResponse> {
+    async balance(): Promise<BalanceResponse  | SmsError> {
         this.action = 'checkbalance';
         try {
             const response = await request(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, {json: true}, (err, res, body) => {

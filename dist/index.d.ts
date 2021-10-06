@@ -39,5 +39,9 @@ export interface BalanceResponse {
     success: boolean;
     balance: number;
 }
+export interface SmsError {
+    errorCode: number;
+    message: string;
+}
 declare const SMS: SMSInterface;
 export { SMS };
