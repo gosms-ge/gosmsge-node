@@ -1,5 +1,7 @@
 const request = require('request-promise');
-
+interface SMSInterface {
+    new(api_key: string): ISMS;
+}
 interface ISMS {
     send(phoneNumbers: string | string[], text: string, senderName: string): Promise<any>;
 
@@ -12,7 +14,41 @@ interface ISMS {
     balance(): Promise<any>;
 }
 
-class SMS implements ISMS {  // Main class
+export interface SmsSendResponse {
+    success: boolean;
+    userId: string;
+    message_id: number;
+    from: string;
+    to: string;
+    text: string;
+    newService: boolean;
+    msgCount: number;
+    sendAt: Date;
+    balance: number;
+    encode: string;
+    segment: number;
+    smsCharacters: number;
+}
+
+export interface CheckStatusResponse {
+    success: boolean;
+    messageId: number;
+    from: string;
+    to: string;
+    text: string;
+    encode: string;
+    sendAt: Date;
+    segment: number;
+    smsCharacters: number;
+    status: string;
+}
+
+export interface BalanceResponse {
+    success: boolean;
+    balance: number;
+}
+
+const SMS: SMSInterface = class SMS implements ISMS {  // Main class
     private readonly apiKey: string
     private readonly gateway_url: string
     private action: string
@@ -31,8 +67,9 @@ class SMS implements ISMS {  // Main class
 
     }
 
+
     // send sms message
-    async send(phoneNumbers: string | string[], text: string, senderName: string): Promise<any> {
+    async send(phoneNumbers: string | string[], text: string, senderName: string): Promise<SmsSendResponse> {
         if (phoneNumbers) {
             if (typeof phoneNumbers !== 'string') {
                 throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
@@ -140,7 +177,7 @@ class SMS implements ISMS {  // Main class
     }
 
     // check message status
-    async status(messageId: string): Promise<any> {
+    async status(messageId: string): Promise<CheckStatusResponse> {
         if (!messageId) {
             throw new TypeError('Message Id is required, it should be string')
         }
@@ -159,7 +196,7 @@ class SMS implements ISMS {  // Main class
     }
 
     // check balance
-    async balance(): Promise<any> {
+    async balance(): Promise<BalanceResponse> {
         this.action = 'checkbalance';
         try {
             const response = await request(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, {json: true}, (err, res, body) => {

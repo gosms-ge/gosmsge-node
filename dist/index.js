@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SMS = void 0;
 const request = require('request-promise');
-class SMS {
+const SMS = class SMS {
     constructor(api_key) {
         if (!api_key) {
             throw new TypeError('api_key is required');
@@ -177,5 +177,5 @@ class SMS {
             }
         });
     }
-}
+};
 exports.SMS = SMS;
