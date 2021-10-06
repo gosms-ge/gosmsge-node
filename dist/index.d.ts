@@ -1,5 +1,4 @@
-declare const request: any;
-declare class SMS {
+export declare class SMS {
     apiKey: string;
     gateway_url: string;
     action: string;

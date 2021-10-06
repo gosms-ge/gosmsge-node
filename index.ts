@@ -1,6 +1,6 @@
 const request = require('request-promise');
 
-class SMS {  // Main class
+export class SMS {  // Main class
     apiKey: string
     gateway_url: string
     action: string
@@ -151,5 +151,3 @@ class SMS {  // Main class
         }
     }
 }
-
-module.exports = SMS;
