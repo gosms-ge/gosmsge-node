@@ -2,7 +2,7 @@ const request = require('request-promise');
 interface SMSInterface {
     new(api_key: string): ISMS;
 }
-interface ISMS {
+export interface ISMS {
     send(phoneNumbers: string | string[], text: string, senderName: string): Promise<any>;
 
     sendOtp(phoneNumbers: string): Promise<any>;
@@ -17,7 +17,7 @@ interface ISMS {
 export interface SmsSendResponse {
     success: boolean;
     userId: string;
-    message_id: number;
+    messageId: number;
     from: string;
     to: string;
     text: string;
