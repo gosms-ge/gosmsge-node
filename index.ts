@@ -11,10 +11,6 @@ import {
     SmsSendResponse
 } from "./lib";
 
-const request = require('request-promise');
-
-
-
 interface SMSInterface {
     new(api_key: string): ISMS;
 }
