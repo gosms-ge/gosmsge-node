@@ -2,12 +2,16 @@
   "name": "@gosmsge/gosmsge-node",
   "version": "2.2.5",
   "description": "Sms send package for GOSMS.ge",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "directories": {
     "example": "examples"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.ts"
   },
   "keywords": [
     "sms",

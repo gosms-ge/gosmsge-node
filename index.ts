@@ -1,6 +1,9 @@
 const request = require('request-promise');
 
 class SMS {  // Main class
+    apiKey: string
+    gateway_url: string
+    action: string
     constructor(api_key) {
         if (!api_key) {
             throw new TypeError('api_key is required')
