@@ -20,12 +20,7 @@ on:
   schedule:
     - cron: '35 10 * * 2'
 
-
-
 jobs:
-  runs:
-    using: 'node16'
-
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
