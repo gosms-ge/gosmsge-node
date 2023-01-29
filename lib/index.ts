@@ -1,6 +1,6 @@
 export type MessageId = number | string
 export type ErrorMessageCode = 100 | 101 | 102 | 103 | 104 | number
-export type ActionType = 'sendsms' | 'otp/send' | 'otp/verify' | 'checksms' | 'checkbalance'
+export type ActionType = 'sendsms' | 'otp/send' | 'otp/verify' | 'checksms' | 'checkbalance' | 'sender'
 
 export interface ISMS {
     send(phoneNumbers: string | string[], text: string, senderName: string): Promise<any>;
@@ -12,6 +12,8 @@ export interface ISMS {
     status(messageId: string): Promise<any>;
 
     balance(): Promise<any>;
+
+    createSender(name: string): Promise<any>;
 }
 
 export interface SmsSendResponse {
@@ -69,4 +71,8 @@ export interface OtpVerifyResponse {
 export interface SmsError {
     errorCode: ErrorMessageCode;
     message: string;
+}
+
+export interface SenderCreateResponse {
+    success: boolean;
 }

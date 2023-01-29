@@ -6,7 +6,7 @@ import {
     ISMS,
     MessageId,
     OtpSendResponse,
-    OtpVerifyResponse,
+    OtpVerifyResponse, SenderCreateResponse,
     SmsError,
     SmsSendResponse
 } from "./lib";
@@ -14,7 +14,6 @@ import {
 interface SMSInterface {
     new(api_key: string): ISMS;
 }
-
 
 
 const SMS: SMSInterface = class SMS implements ISMS {  // Main class
@@ -35,7 +34,6 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
         this.action = null;
 
     }
-
 
     // send sms message
     async send(phoneNumbers: string | string[], text: string, senderName: string): Promise<SmsSendResponse | SmsError> {
@@ -63,7 +61,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
             };
             return await axios.post<any>(`${this.gateway_url}/${this.action}`, jsonDataObj, {headers: {'Content-type': 'application/json'}})
                 .then((res: AxiosResponse<SmsSendResponse>) => res.data)
-                .catch( (error: AxiosError<SmsError>) => {
+                .catch((error: AxiosError<SmsError>) => {
                     throw error
                 });
         } catch (err) {
@@ -89,7 +87,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
             };
             return await axios.post<any>(`${this.gateway_url}/${this.action}`, jsonDataObj, {headers: {'Content-type': 'application/json'}})
                 .then((res: AxiosResponse<OtpSendResponse>) => res.data)
-                .catch( (error: AxiosError<SmsError>) => {
+                .catch((error: AxiosError<SmsError>) => {
                     throw error
                 });
         } catch (err) {
@@ -122,7 +120,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
             };
             return await axios.post<any>(`${this.gateway_url}/${this.action}`, jsonDataObj, {headers: {'Content-type': 'application/json'}})
                 .then((res: AxiosResponse<OtpVerifyResponse>) => res.data)
-                .catch( (error: AxiosError<SmsError>) => {
+                .catch((error: AxiosError<SmsError>) => {
                     throw error
                 });
         } catch (err) {
@@ -139,7 +137,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
         try {
             return await axios.post<any>(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}&messageId=${messageId}`, {}, {headers: {'Content-type': 'application/json'}})
                 .then((res: AxiosResponse<CheckStatusResponse>) => res.data)
-                .catch( (error: AxiosError<SmsError>) => {
+                .catch((error: AxiosError<SmsError>) => {
                     throw error
                 });
         } catch (err) {
@@ -153,7 +151,24 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
         try {
             return await axios.post<any>(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, {}, {headers: {'Content-type': 'application/json'}})
                 .then((res: AxiosResponse<BalanceResponse>) => res.data)
-                .catch( (error: AxiosError<SmsError>) => {
+                .catch((error: AxiosError<SmsError>) => {
+                    throw error
+                });
+        } catch (err) {
+            throw err
+        }
+    }
+
+    // create sender name
+    createSender(name: string): Promise<SenderCreateResponse | SmsError> {
+        this.action = 'sender';
+        try {
+            return axios.post<any>(`${this.gateway_url}/${this.action}`, {
+                api_key: this.apiKey,
+                name: name
+            }, {headers: {'Content-type': 'application/json'}})
+                .then((res: AxiosResponse<any>) => res.data)
+                .catch((error: AxiosError<SmsError>) => {
                     throw error
                 });
         } catch (err) {
