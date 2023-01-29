@@ -20,11 +20,13 @@ on:
   schedule:
     - cron: '35 10 * * 2'
 
+runs:
+  using: 'node16'
+
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    using: 'node16'
 
     strategy:
       fail-fast: false
