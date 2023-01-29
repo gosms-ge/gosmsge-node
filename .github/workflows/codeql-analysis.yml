@@ -24,10 +24,12 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    using: 'node16'
 
     strategy:
       fail-fast: false
       matrix:
+        node-version: [ 16.x ]
         language: [ 'javascript' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
         # Learn more:
