@@ -5,6 +5,8 @@ on:
     types: [ created ]
 
 jobs:
+  runs:
+    using: 'node16'
   build:
     runs-on: ubuntu-latest
 
