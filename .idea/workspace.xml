@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="version 3.2.4">
+    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="version 3.2.5">
       <change beforePath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +84,7 @@
       <workItem from="1607264021794" duration="4693000" />
       <workItem from="1623141460989" duration="4525000" />
       <workItem from="1670580423594" duration="1896000" />
-      <workItem from="1675027877945" duration="3348000" />
+      <workItem from="1675027877945" duration="3510000" />
     </task>
     <task id="LOCAL-00001" summary="feat(API-endpoint): change endpoint">
       <created>1602462640667</created>
@@ -226,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675031569378</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="version 3.2.5">
+      <created>1675031830042</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1675031830042</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -264,6 +271,7 @@
     <MESSAGE value="version 3.2.2" />
     <MESSAGE value="version 3.2.3" />
     <MESSAGE value="version 3.2.4" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 3.2.4" />
+    <MESSAGE value="version 3.2.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 3.2.5" />
   </component>
 </project>
