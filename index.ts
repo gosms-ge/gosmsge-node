@@ -36,7 +36,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
     }
 
     // send sms message
-    async send(phoneNumbers: string | string[], text: string, senderName: string): Promise<SmsSendResponse | SmsError> {
+    async send(phoneNumbers: string | string[], text: string, senderName: string, urgent: boolean = false): Promise<SmsSendResponse | SmsError> {
         if (phoneNumbers) {
             if (typeof phoneNumbers !== 'string') {
                 throw new TypeError('First argument phoneNumbers is required, it could be array for multiple numbers or string for one number')
@@ -57,7 +57,8 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
                 api_key: this.apiKey,
                 to: phoneNumbers,
                 from: senderName,
-                text: text
+                text: text,
+                urgent: urgent
             };
             return await axios.post<any>(`${this.gateway_url}/${this.action}`, jsonDataObj, {headers: {'Content-type': 'application/json'}})
                 .then((res: AxiosResponse<SmsSendResponse>) => res.data)

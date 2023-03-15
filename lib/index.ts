@@ -1,9 +1,9 @@
 export type MessageId = number | string
-export type ErrorMessageCode = 100 | 101 | 102 | 103 | 104 | number
+export type ErrorMessageCode = 100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | number
 export type ActionType = 'sendsms' | 'otp/send' | 'otp/verify' | 'checksms' | 'checkbalance' | 'sender'
 
 export interface ISMS {
-    send(phoneNumbers: string | string[], text: string, senderName: string): Promise<any>;
+    send(phoneNumbers: string | string[], text: string, senderName: string, urgent?: boolean): Promise<any>;
 
     sendOtp(phoneNumbers: string): Promise<any>;
 
