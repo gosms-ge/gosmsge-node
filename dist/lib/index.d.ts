@@ -1,12 +1,13 @@
-export declare type MessageId = number | string;
-export declare type ErrorMessageCode = 100 | 101 | 102 | 103 | 104 | number;
-export declare type ActionType = 'sendsms' | 'otp/send' | 'otp/verify' | 'checksms' | 'checkbalance';
+export type MessageId = number | string;
+export type ErrorMessageCode = 100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | number;
+export type ActionType = 'sendsms' | 'otp/send' | 'otp/verify' | 'checksms' | 'checkbalance' | 'sender';
 export interface ISMS {
-    send(phoneNumbers: string | string[], text: string, senderName: string): Promise<any>;
+    send(phoneNumbers: string | string[], text: string, senderName: string, urgent?: boolean): Promise<any>;
     sendOtp(phoneNumbers: string): Promise<any>;
     verifyOtp(phoneNumbers: string, hash: string, code: string): Promise<any>;
     status(messageId: string): Promise<any>;
     balance(): Promise<any>;
+    createSender(name: string): Promise<any>;
 }
 export interface SmsSendResponse {
     success: boolean;
@@ -58,4 +59,7 @@ export interface OtpVerifyResponse {
 export interface SmsError {
     errorCode: ErrorMessageCode;
     message: string;
+}
+export interface SenderCreateResponse {
+    success: boolean;
 }

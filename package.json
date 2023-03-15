@@ -1,6 +1,6 @@
 {
   "name": "@gosmsge/gosmsge-node",
-  "version": "3.3.1",
+  "version": "3.3.3",
   "description": "Sms send package for GOSMS.ge",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,10 @@
     "example": "examples"
   },
   "scripts": {
-    "start": "node index.ts"
+    "build": "rimraf ./dist && tsc",
+    "dev": "nodemon",
+    "start": "npm run build && node dist/index.js",
+    "publish": "npm run build && npm publish --access public"
   },
   "keywords": [
     "sms",
@@ -38,6 +41,9 @@
   },
   "homepage": "https://github.com/gosms-ge/gosmsge-node#readme",
   "devDependencies": {
-    "@types/node": "^16.10.3"
+    "@types/node": "^16.10.3",
+    "nodemon": "^2.0.21",
+    "rimraf": "^4.4.0",
+    "ts-node": "^10.9.1"
   }
 }

@@ -24,7 +24,7 @@ const SMS = class SMS {
         this.action = null;
     }
     // send sms message
-    send(phoneNumbers, text, senderName) {
+    send(phoneNumbers, text, senderName, urgent = false) {
         return __awaiter(this, void 0, void 0, function* () {
             if (phoneNumbers) {
                 if (typeof phoneNumbers !== 'string') {
@@ -46,7 +46,8 @@ const SMS = class SMS {
                     api_key: this.apiKey,
                     to: phoneNumbers,
                     from: senderName,
-                    text: text
+                    text: text,
+                    urgent: urgent
                 };
                 return yield axios_1.default.post(`${this.gateway_url}/${this.action}`, jsonDataObj, { headers: { 'Content-type': 'application/json' } })
                     .then((res) => res.data)
@@ -157,6 +158,23 @@ const SMS = class SMS {
                 throw err;
             }
         });
+    }
+    // create sender name
+    createSender(name) {
+        this.action = 'sender';
+        try {
+            return axios_1.default.post(`${this.gateway_url}/${this.action}`, {
+                api_key: this.apiKey,
+                name: name
+            }, { headers: { 'Content-type': 'application/json' } })
+                .then((res) => res.data)
+                .catch((error) => {
+                throw error;
+            });
+        }
+        catch (err) {
+            throw err;
+        }
     }
 };
 exports.SMS = SMS;
