@@ -136,7 +136,11 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
         }
         this.action = 'checksms';
         try {
-            return await axios.post<any>(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}&messageId=${messageId}`, {}, {headers: {'Content-type': 'application/json'}})
+            const jsonDataObj = {
+                api_key: this.apiKey,
+                messageId: messageId
+            };
+            return await axios.post<any>(`${this.gateway_url}/${this.action}`, jsonDataObj, {headers: {'Content-type': 'application/json'}})
                 .then((res: AxiosResponse<CheckStatusResponse>) => res.data)
                 .catch((error: AxiosError<SmsError>) => {
                     throw error
@@ -148,7 +152,7 @@ const SMS: SMSInterface = class SMS implements ISMS {  // Main class
 
     // check balance
     async balance(): Promise<BalanceResponse | SmsError> {
-        this.action = 'checkbalance';
+        this.action = 'sms-balance';
         try {
             return await axios.post<any>(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, {}, {headers: {'Content-type': 'application/json'}})
                 .then((res: AxiosResponse<BalanceResponse>) => res.data)

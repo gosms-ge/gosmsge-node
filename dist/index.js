@@ -132,7 +132,11 @@ const SMS = class SMS {
             }
             this.action = 'checksms';
             try {
-                return yield axios_1.default.post(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}&messageId=${messageId}`, {}, { headers: { 'Content-type': 'application/json' } })
+                const jsonDataObj = {
+                    api_key: this.apiKey,
+                    messageId: messageId
+                };
+                return yield axios_1.default.post(`${this.gateway_url}/${this.action}`, jsonDataObj, { headers: { 'Content-type': 'application/json' } })
                     .then((res) => res.data)
                     .catch((error) => {
                     throw error;
@@ -146,7 +150,7 @@ const SMS = class SMS {
     // check balance
     balance() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.action = 'checkbalance';
+            this.action = 'sms-balance';
             try {
                 return yield axios_1.default.post(`${this.gateway_url}/${this.action}?api_key=${this.apiKey}`, {}, { headers: { 'Content-type': 'application/json' } })
                     .then((res) => res.data)
