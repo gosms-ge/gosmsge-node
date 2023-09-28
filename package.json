@@ -1,6 +1,6 @@
 {
   "name": "@gosmsge/gosmsge-node",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "description": "Sms send package for GOSMS.ge",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
