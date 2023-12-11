@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="version 3.3.6">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" afterDir="false" />
+    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="version 3.3.7">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +120,7 @@
       <workItem from="1670580423594" duration="1896000" />
       <workItem from="1675027877945" duration="5239000" />
       <workItem from="1678915319334" duration="767000" />
-      <workItem from="1695943207528" duration="3091000" />
+      <workItem from="1695943207528" duration="4301000" />
     </task>
     <task id="LOCAL-00001" summary="feat(API-endpoint): change endpoint">
       <created>1602462640667</created>
@@ -361,7 +360,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695945506395</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="version 3.3.7">
+      <created>1695946333507</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1695946333507</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -412,6 +418,7 @@
     <MESSAGE value="version 3.3.4" />
     <MESSAGE value="version 3.3.5" />
     <MESSAGE value="version 3.3.6" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 3.3.6" />
+    <MESSAGE value="version 3.3.7" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 3.3.7" />
   </component>
 </project>
