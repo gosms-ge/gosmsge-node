@@ -23,6 +23,11 @@ jobs:
             - ./node_modules
           key: node-deps-{{ checksum "package-lock.json" }}
       - run:
+          name: Authenticate with npm
+          command: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          environment:
+            NODE_AUTH_TOKEN: NODE_AUTH_TOKEN
+      - run:
           name: Publish
           command: npm publish --access public
           environment:
