@@ -1,7 +1,35 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:20.0
+jobs:
+  build:
+    executor: node-executor
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-deps-{{ checksum "package-lock.json" }}
+            - node-deps-
+      - node/install-packages
+      - run:
+          name: Build
+          command: npm run build --if-present
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: node-deps-{{ checksum "package-lock.json" }}
+      - run:
+          name: Publish
+          command: npm publish --access public
+          environment:
+            NODE_AUTH_TOKEN: NODE_AUTH_TOKEN
 workflows:
+  version: 2
   node-tests:
     jobs:
-      - node/test
+      - build:
+          context: npm-context
