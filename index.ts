@@ -192,6 +192,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
     });
   }
 
+
   /**
    * Sends an OTP (One-Time Password) SMS message
    * @param phoneNumbers - Phone number to send OTP to
