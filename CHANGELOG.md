@@ -1,3 +1,14 @@
+## [1.1.0](https://github.com/gosms-ge/gosmsge-node/compare/v1.0.0...v1.1.0) (2025-10-10)
+
+### ✨ Features
+
+* release version 4.0.0 ([267a4c0](https://github.com/gosms-ge/gosmsge-node/commit/267a4c07bc918eb4cdff142f39569398f386f8f5))
+
+### 🔧 Chores
+
+* bump package version to 4.0.0 ([69a65b8](https://github.com/gosms-ge/gosmsge-node/commit/69a65b893c105e811af04b3b33f3f357ba64a17c))
+* set publishConfig for public npm registry ([1bb8d1d](https://github.com/gosms-ge/gosmsge-node/commit/1bb8d1d2aceab0b5eb5621cd34e2f8e8f828db79))
+
 ## 1.0.0 (2025-10-10)
 
 ### ✨ Features
