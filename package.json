@@ -48,6 +48,10 @@
     "url": "https://github.com/gosms-ge/gosmsge-node/issues"
   },
   "homepage": "https://github.com/gosms-ge/gosmsge-node#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
