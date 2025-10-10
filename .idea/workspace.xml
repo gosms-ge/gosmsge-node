@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="chore: set publishConfig for public npm registry" />
+    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="chore: bump package version to 4.0.0">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,7 +15,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -163,7 +165,7 @@
       <workItem from="1695943207528" duration="4301000" />
       <workItem from="1702337660857" duration="242000" />
       <workItem from="1702341921014" duration="673000" />
-      <workItem from="1760124257988" duration="5877000" />
+      <workItem from="1760124257988" duration="6711000" />
     </task>
     <task id="LOCAL-00001" summary="feat(API-endpoint): change endpoint">
       <created>1602462640667</created>
@@ -425,7 +427,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760129913982</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="chore: bump package version to 4.0.0">
+      <option name="closed" value="true" />
+      <created>1760130289107</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1760130289107</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -491,6 +501,7 @@
     <MESSAGE value="version 3.3.7" />
     <MESSAGE value="version 3.3.8" />
     <MESSAGE value="chore: set publishConfig for public npm registry" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: set publishConfig for public npm registry" />
+    <MESSAGE value="chore: bump package version to 4.0.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: bump package version to 4.0.0" />
   </component>
 </project>

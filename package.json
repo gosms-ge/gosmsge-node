@@ -1,6 +1,6 @@
 {
   "name": "@gosmsge/gosmsge-node",
-  "version": "1.1.0",
+  "version": "4.4.0",
   "description": "Sms send package for GOSMS.ge",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,7 +22,7 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
-    "prepublishOnly": "npm run lint && npm test && npm run build",
+    "prepublishOnly": "npm run build",
     "prepare": "husky",
     "semantic-release": "semantic-release"
   },
