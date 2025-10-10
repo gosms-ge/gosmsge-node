@@ -2,20 +2,34 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+We actively support the following versions with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| 3.3.x   | :white_check_mark: |
+| 3.2.x   | :white_check_mark: |
+| < 3.2   | :x:                |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+We take security vulnerabilities seriously. If you discover a security issue in gosmsge-node, please report it by:
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+1. **Email**: Send details to info@gosms.ge with subject line "Security Vulnerability in gosmsge-node"
+2. **GitHub Security Advisories**: Use the [Security tab](https://github.com/gosms-ge/gosmsge-node/security) to privately report vulnerabilities
+
+### What to Include
+
+- Description of the vulnerability
+- Steps to reproduce the issue
+- Potential impact
+- Suggested fix (if available)
+
+### Response Timeline
+
+- **Initial Response**: Within 48 hours
+- **Status Update**: Within 7 days
+- **Fix Timeline**: Critical issues will be patched within 14 days
+
+### Disclosure Policy
+
+Please do not publicly disclose the vulnerability until we have released a fix. We will credit you in the release notes unless you prefer to remain anonymous.

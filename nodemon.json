@@ -1,6 +1,6 @@
 {
-  "watch": ["./"],
-  "ext": ".ts,.js",
-  "ignore": [],
-  "exec": "ts-node --files ./index.ts"
+  "watch": ["lib", "index.ts"],
+  "ext": "ts,js",
+  "ignore": ["dist", "node_modules", "examples"],
+  "exec": "ts-node ./index.ts"
 }

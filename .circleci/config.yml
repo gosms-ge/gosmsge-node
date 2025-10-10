@@ -1,40 +1,17 @@
 version: 2.1
+
 orbs:
-  node: circleci/node@3.0.0
-executors:
-  node-executor:
-    docker:
-      - image: cimg/node:20.0
-jobs:
-  build:
-    executor: node-executor
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - node-deps-{{ checksum "package-lock.json" }}
-            - node-deps-
-      - node/install-packages
-      - run:
-          name: Build
-          command: npm run build --if-present
-      - save_cache:
-          paths:
-            - ./node_modules
-          key: node-deps-{{ checksum "package-lock.json" }}
-      - run:
-          name: Authenticate with npm
-          command: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          environment:
-            NODE_AUTH_TOKEN: NODE_AUTH_TOKEN
-      - run:
-          name: Publish
-          command: npm publish --access public
-          environment:
-            NODE_AUTH_TOKEN: NODE_AUTH_TOKEN
+  node: circleci/node@6.1.0
+
 workflows:
-  version: 2
-  node-tests:
+  test:
     jobs:
-      - build:
-          context: npm-context
+      - node/test:
+          name: test-node-18
+          version: '18.20'
+      - node/test:
+          name: test-node-20
+          version: '20.11'
+      - node/test:
+          name: test-node-22
+          version: '22.0'

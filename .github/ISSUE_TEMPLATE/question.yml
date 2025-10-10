@@ -1,0 +1,106 @@
+name: Question / Support
+description: Ask a question or request help
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reaching out! Please fill out the form below to help us understand your question.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What would you like to know?
+      placeholder: How do I...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      description: What is your question about?
+      options:
+        - Installation / Setup
+        - API Usage / Methods
+        - TypeScript / Types
+        - Error Handling
+        - Authentication / API Keys
+        - Testing / Development
+        - Performance / Optimization
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide more details about what you're trying to accomplish
+      placeholder: I'm trying to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: What Have You Tried?
+      description: What approaches have you already attempted?
+      placeholder: I tried...
+    validations:
+      required: false
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code Sample
+      description: If applicable, share relevant code
+      render: typescript
+      placeholder: |
+        const sms = new SMS('api_key');
+        // Your code here
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Package Version
+      description: What version of @gosmsge/gosmsge-node are you using?
+      placeholder: "3.3.8"
+    validations:
+      required: false
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js Version
+      description: What version of Node.js are you running?
+      placeholder: "20.11.0"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Any other relevant information
+      placeholder: Also, I'm wondering about...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please confirm the following
+      options:
+        - label: I have read the README documentation
+          required: true
+        - label: I have searched existing issues for similar questions
+          required: true
+        - label: This is not a bug report (use Bug Report template instead)
+          required: true

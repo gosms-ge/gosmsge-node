@@ -15,7 +15,20 @@
     "build": "rimraf ./dist && tsc",
     "dev": "nodemon",
     "start": "npm run build && node dist/index.js",
-    "publish": "npm run build && npm publish --access public"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"**/*.{ts,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
+    "prepublishOnly": "npm run lint && npm test && npm run build",
+    "prepare": "husky",
+    "semantic-release": "semantic-release"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   },
   "keywords": [
     "sms",
@@ -31,17 +44,32 @@
     "url": "git+https://github.com/gosms-ge/gosmsge-node.git"
   },
   "license": "ISC",
-  "dependencies": {
-    "axios": "^1.6.2"
-  },
   "bugs": {
     "url": "https://github.com/gosms-ge/gosmsge-node/issues"
   },
   "homepage": "https://github.com/gosms-ge/gosmsge-node#readme",
   "devDependencies": {
-    "@types/node": "^16.18.54",
-    "nodemon": "^3.0.1",
-    "rimraf": "^4.4.1",
-    "ts-node": "^10.9.1"
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.7.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "semantic-release": "^24.2.9",
+    "ts-jest": "^29.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

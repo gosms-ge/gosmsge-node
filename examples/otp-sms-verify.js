@@ -1,7 +1,13 @@
-const {SMS} = require('../dist')
+const { SMS } = require('../dist');
 
-const sms = new SMS('RWxHRkd6aXlBZ3NOaUdMSWpGTkw=')
+// Replace 'YOUR_API_KEY_HERE' with your actual API key from https://gosms.ge
+const sms = new SMS('YOUR_API_KEY_HERE');
 
-sms.verifyOtp('995555123456', '37d167145f4794b774d28e1b240faab1bd05a024df67a935a113f3c265503a9d.1623146284808', '8200')
-    .then(body => console.log(body)) // returns { success: 'boolean', verify: 'boolean' }
-    .catch(err => console.log(err.message));
+// Use the hash received from sendOtp() and the code sent to the user's phone
+sms
+  .verifyOtp('995555123456', 'HASH_FROM_SENDOTP_RESPONSE', '1234')
+  .then(body => {
+    console.log('Success:', body);
+    // Response: { success: true/false, verify: true/false }
+  })
+  .catch(err => console.log('Error:', err.message));

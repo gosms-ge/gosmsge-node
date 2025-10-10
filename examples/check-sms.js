@@ -1,8 +1,13 @@
-const {SMS} = require('../dist')
+const { SMS } = require('../dist');
 
+// Replace 'YOUR_API_KEY_HERE' with your actual API key from https://gosms.ge
+const sms = new SMS('YOUR_API_KEY_HERE');
 
-const sms = new SMS('RWxHRkd6aXlBZ3NOaUdMSWpGTkw=')
-
-sms.status('1560686561')
-    .then(body => console.log(body)) // returns { message_id: 'string' }
-    .catch(err => console.log(err.message));
+// Replace 'MESSAGE_ID_HERE' with the actual message ID from send() response
+sms
+  .status('MESSAGE_ID_HERE')
+  .then(body => {
+    console.log('Success:', body);
+    // Response includes: success, messageId, from, to, text, status, sendAt, etc.
+  })
+  .catch(err => console.log('Error:', err.message));

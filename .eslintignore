@@ -1,0 +1,15 @@
+# Build output
+dist
+coverage
+
+# Tests (handled by Jest's own linting)
+__tests__
+
+# Dependencies
+node_modules
+
+# Examples
+examples
+
+# Documentation
+*.md
