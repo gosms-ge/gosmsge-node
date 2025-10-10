@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/gosms-ge/gosmsge-node/compare/v1.2.0...v1.3.0) (2025-10-10)
+
+### ✨ Features
+
+* bump package version to 4.4.0 ([0bddf57](https://github.com/gosms-ge/gosmsge-node/commit/0bddf57e31620d1137536df50312d329bb02b478))
+
 ## [1.2.0](https://github.com/gosms-ge/gosmsge-node/compare/v1.1.0...v1.2.0) (2025-10-10)
 
 ### ✨ Features
