@@ -14,21 +14,21 @@ export interface ISMS {
     text: string,
     senderName: string,
     urgent?: boolean
-  ): Promise<SmsSendResponse | SmsError>;
+  ): Promise<SmsSendResponse>;
 
-  sendOtp(phoneNumbers: string): Promise<OtpSendResponse | SmsError>;
+  sendOtp(phoneNumbers: string): Promise<OtpSendResponse>;
 
   verifyOtp(
     phoneNumbers: string,
     hash: string,
     code: string
-  ): Promise<OtpVerifyResponse | SmsError>;
+  ): Promise<OtpVerifyResponse>;
 
-  status(messageId: string): Promise<CheckStatusResponse | SmsError>;
+  status(messageId: string): Promise<CheckStatusResponse>;
 
-  balance(): Promise<BalanceResponse | SmsError>;
+  balance(): Promise<BalanceResponse>;
 
-  createSender(name: string): Promise<SenderCreateResponse | SmsError>;
+  createSender(name: string): Promise<SenderCreateResponse>;
 }
 
 export interface SmsSendResponse extends SmsError{
