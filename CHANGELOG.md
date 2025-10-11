@@ -1,3 +1,9 @@
+## [4.2.1](https://github.com/gosms-ge/gosmsge-node/compare/v4.2.0...v4.2.1) (2025-10-11)
+
+### 🐛 Bug Fixes
+
+* update response interfaces to remove SmsError dependency ([53ee1c4](https://github.com/gosms-ge/gosmsge-node/commit/53ee1c410e4f31b0137fadb979024c3146a97323))
+
 ## [4.2.0](https://github.com/gosms-ge/gosmsge-node/compare/v4.1.0...v4.2.0) (2025-10-11)
 
 ### ✨ Features
