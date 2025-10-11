@@ -31,7 +31,7 @@ export interface ISMS {
   createSender(name: string): Promise<SenderCreateResponse | SmsError>;
 }
 
-export interface SmsSendResponse {
+export interface SmsSendResponse extends SmsError{
   success: boolean;
   userId: string;
   message_id: MessageId;
@@ -48,7 +48,7 @@ export interface SmsSendResponse {
   smsCharacters: number;
 }
 
-export interface CheckStatusResponse {
+export interface CheckStatusResponse extends SmsError {
   success: boolean;
   message_id: MessageId;
   messageId: MessageId;
@@ -62,12 +62,12 @@ export interface CheckStatusResponse {
   status: string;
 }
 
-export interface BalanceResponse {
+export interface BalanceResponse extends SmsError {
   success: boolean;
   balance: number;
 }
 
-export interface OtpSendResponse {
+export interface OtpSendResponse extends SmsError{
   success: boolean;
   hash: string;
   balance: number;
@@ -78,16 +78,16 @@ export interface OtpSendResponse {
   smsCharacters: number;
 }
 
-export interface OtpVerifyResponse {
+export interface OtpVerifyResponse extends SmsError{
   success: boolean;
   verify: boolean;
 }
 
 export interface SmsError {
-  errorCode: ErrorMessageCode;
-  message: string;
+  errorCode?: ErrorMessageCode;
+  message?: string;
 }
 
-export interface SenderCreateResponse {
+export interface SenderCreateResponse extends SmsError{
   success: boolean;
 }

@@ -178,7 +178,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
     text: string,
     senderName: string,
     urgent: boolean = false
-  ): Promise<SmsSendResponse | SmsError> {
+  ): Promise<SmsSendResponse> {
     this.validatePhoneNumber(phoneNumbers, 'phoneNumbers');
     this.validateString(text, 'text', 'Second');
     this.validateString(senderName, 'senderName', 'Third');
@@ -205,7 +205,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * console.log('Balance:', result.balance);
    * ```
    */
-  async sendOtp(phoneNumbers: string): Promise<OtpSendResponse | SmsError> {
+  async sendOtp(phoneNumbers: string): Promise<OtpSendResponse> {
     this.validatePhoneNumber(phoneNumbers, 'phoneNumbers');
 
     return this.makeRequest<OtpSendResponse>('otp/send', {
@@ -235,7 +235,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
     phoneNumbers: string,
     hash: string,
     code: string
-  ): Promise<OtpVerifyResponse | SmsError> {
+  ): Promise<OtpVerifyResponse> {
     this.validatePhoneNumber(phoneNumbers, 'phoneNumbers');
     this.validateString(hash, 'hash', 'Second');
     this.validateString(code, 'code', 'Third');
@@ -261,7 +261,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * console.log('To:', result.to);
    * ```
    */
-  async status(messageId: string): Promise<CheckStatusResponse | SmsError> {
+  async status(messageId: string): Promise<CheckStatusResponse> {
     if (!messageId) {
       throw new TypeError('Message Id is required, it should be string');
     }
@@ -281,7 +281,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * console.log('Balance:', result.balance); // Number of SMS credits remaining
    * ```
    */
-  async balance(): Promise<BalanceResponse | SmsError> {
+  async balance(): Promise<BalanceResponse> {
     return this.makeRequest<BalanceResponse>(`sms-balance?api_key=${this.apiKey}`, {});
   }
 
@@ -300,7 +300,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * }
    * ```
    */
-  async createSender(name: string): Promise<SenderCreateResponse | SmsError> {
+  async createSender(name: string): Promise<SenderCreateResponse> {
     return this.makeRequest<SenderCreateResponse>('sender', {
       api_key: this.apiKey,
       name: name,
