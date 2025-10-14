@@ -1,3 +1,9 @@
+## [4.2.2](https://github.com/gosms-ge/gosmsge-node/compare/v4.2.1...v4.2.2) (2025-10-14)
+
+### ♻️ Code Refactoring
+
+* standardize `phoneNumber` parameter formatting and update validation rules ([33a6c9e](https://github.com/gosms-ge/gosmsge-node/commit/33a6c9e04f4a21694176dd08af9d898d49fbca8a))
+
 ## [4.2.1](https://github.com/gosms-ge/gosmsge-node/compare/v4.2.0...v4.2.1) (2025-10-11)
 
 ### 🐛 Bug Fixes
