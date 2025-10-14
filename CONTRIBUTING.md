@@ -288,11 +288,11 @@ npm run test:coverage
 
 ```typescript
 async send(
-  phoneNumbers: string | string[],
+  phoneNumber: string,
   text: string,
   senderName: string,
   urgent: boolean = false
-): Promise<SmsSendResponse | SmsError> {
+): Promise<SmsSendResponse> {
   // Implementation
 }
 ```
@@ -306,12 +306,12 @@ async send(
 
 ````typescript
 /**
- * Sends an SMS message to one or multiple phone numbers
- * @param phoneNumbers - Single phone number or array of numbers
+ * Sends an SMS message to a phone number
+ * @param phoneNumber - Phone number as a string
  * @param text - Message text to send
  * @param senderName - Registered sender name
  * @param urgent - Send as urgent message (default: false)
- * @returns Promise with send response or error
+ * @returns Promise with send response
  * @example
  * ```typescript
  * await sms.send('995555123456', 'Hello!', 'GOSMS.GE');

@@ -33,11 +33,7 @@ class BalanceMonitor {
   private lowBalanceThreshold: number;
   private criticalBalanceThreshold: number;
 
-  constructor(
-    apiKey: string,
-    lowBalanceThreshold = 50,
-    criticalBalanceThreshold = 10
-  ) {
+  constructor(apiKey: string, lowBalanceThreshold = 50, criticalBalanceThreshold = 10) {
     this.smsClient = new SMS(apiKey);
     this.lowBalanceThreshold = lowBalanceThreshold;
     this.criticalBalanceThreshold = criticalBalanceThreshold;
@@ -117,10 +113,13 @@ class BalanceWatcher {
     this.monitor.checkAndAlert();
 
     // Then check periodically
-    this.intervalId = setInterval(() => {
-      console.log('\n--- Periodic Balance Check ---');
-      this.monitor.checkAndAlert();
-    }, intervalMinutes * 60 * 1000);
+    this.intervalId = setInterval(
+      () => {
+        console.log('\n--- Periodic Balance Check ---');
+        this.monitor.checkAndAlert();
+      },
+      intervalMinutes * 60 * 1000
+    );
   }
 
   stop(): void {

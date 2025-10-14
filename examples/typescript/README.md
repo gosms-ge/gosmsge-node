@@ -34,17 +34,20 @@ node examples/typescript/quick-sms.js
 ## 📁 Available Examples
 
 ### 1. **quick-sms.ts** - Basic SMS Sending
+
 - Simple SMS sending
 - Urgent message flag
 - Response handling
 - Error handling with types
 
 **Run:**
+
 ```bash
 npx ts-node examples/typescript/quick-sms.ts
 ```
 
 **Key features:**
+
 - Type-safe API calls
 - Proper error typing
 - Response field access
@@ -52,17 +55,20 @@ npx ts-node examples/typescript/quick-sms.ts
 ---
 
 ### 2. **otp-sms-send.ts** - Send OTP
+
 - Basic OTP sending
 - Hash retrieval for verification
 - Retry logic with exponential backoff
 - Production workflow patterns
 
 **Run:**
+
 ```bash
 npx ts-node examples/typescript/otp-sms-send.ts
 ```
 
 **Key features:**
+
 - OTP hash management
 - Retry mechanism
 - Error handling
@@ -70,6 +76,7 @@ npx ts-node examples/typescript/otp-sms-send.ts
 ---
 
 ### 3. **otp-sms-verify.ts** - Verify OTP
+
 - Basic OTP verification
 - Complete OTP service class
 - Session management
@@ -77,11 +84,13 @@ npx ts-node examples/typescript/otp-sms-send.ts
 - Expiry handling
 
 **Run:**
+
 ```bash
 npx ts-node examples/typescript/otp-sms-verify.ts
 ```
 
 **Key features:**
+
 - OTPService class for production
 - Session tracking
 - Maximum attempts
@@ -90,6 +99,7 @@ npx ts-node examples/typescript/otp-sms-verify.ts
 ---
 
 ### 4. **check-balance.ts** - Balance Management
+
 - Simple balance check
 - BalanceMonitor class
 - Low balance alerts
@@ -97,11 +107,13 @@ npx ts-node examples/typescript/otp-sms-verify.ts
 - Periodic balance watching
 
 **Run:**
+
 ```bash
 npx ts-node examples/typescript/check-balance.ts
 ```
 
 **Key features:**
+
 - Balance monitoring service
 - Alert thresholds
 - Periodic checking
@@ -110,6 +122,7 @@ npx ts-node examples/typescript/check-balance.ts
 ---
 
 ### 5. **check-sms.ts** - Message Status Tracking
+
 - Basic status check
 - MessageTracker class
 - Bulk status checking
@@ -117,11 +130,13 @@ npx ts-node examples/typescript/check-balance.ts
 - Status summaries
 
 **Run:**
+
 ```bash
 npx ts-node examples/typescript/check-sms.ts
 ```
 
 **Key features:**
+
 - Message tracking service
 - Status polling
 - Bulk operations
@@ -130,6 +145,7 @@ npx ts-node examples/typescript/check-sms.ts
 ---
 
 ### 6. **advanced-usage.ts** - Advanced Features
+
 - Debug mode configuration
 - Custom timeout settings
 - Retry logic configuration
@@ -137,11 +153,13 @@ npx ts-node examples/typescript/check-sms.ts
 - Environment-aware configuration
 
 **Run:**
+
 ```bash
 npx ts-node examples/typescript/advanced-usage.ts
 ```
 
 **Key features:**
+
 - Debug logging
 - Timeout configuration
 - Automatic retries
@@ -158,9 +176,9 @@ All examples use the SMS client with optional configuration:
 import { SMS } from '@gosmsge/gosmsge-node';
 
 const sms = new SMS('your_api_key', {
-  debug: true,      // Enable debug logging (default: false)
-  timeout: 30000,   // Request timeout in ms (default: 30000)
-  retries: 3,       // Number of retry attempts (default: 1)
+  debug: true, // Enable debug logging (default: false)
+  timeout: 30000, // Request timeout in ms (default: 30000)
+  retries: 3, // Number of retry attempts (default: 1)
 });
 ```
 
@@ -214,7 +232,8 @@ async function sendSMS() {
 }
 
 // Alternative: promises
-sms.send('995555123456', 'Hello', 'GOSMS.GE')
+sms
+  .send('995555123456', 'Hello', 'GOSMS.GE')
   .then(response => console.log(response))
   .catch(error => console.error(error));
 ```
@@ -274,6 +293,7 @@ if (balance.balance < MINIMUM_THRESHOLD) {
 ### Issue: "Cannot find module '@gosmsge/gosmsge-node'"
 
 **Solution:**
+
 ```bash
 npm install @gosmsge/gosmsge-node
 ```
@@ -285,6 +305,7 @@ npm install @gosmsge/gosmsge-node
 ### Issue: TypeScript compilation errors
 
 **Solution:** Ensure you have TypeScript 5.0+ installed:
+
 ```bash
 npm install --save-dev typescript@latest
 ```

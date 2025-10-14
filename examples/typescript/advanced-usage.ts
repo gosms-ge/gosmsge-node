@@ -174,11 +174,7 @@ class ProductionSMSService {
     senderName: string
   ): Promise<{ success: boolean; messageId?: string; error?: string }> {
     try {
-      const response = (await this.client.send(
-        phoneNumber,
-        text,
-        senderName
-      )) as SmsSendResponse;
+      const response = (await this.client.send(phoneNumber, text, senderName)) as SmsSendResponse;
 
       return {
         success: true,

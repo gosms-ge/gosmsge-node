@@ -160,6 +160,241 @@ async function sendMessage() {
 sendMessage();
 ```
 
+# API Reference
+
+## Constructor
+
+### `new SMS(api_key: string, options?: SMSOptions)`
+
+Creates a new SMS client instance.
+
+**Parameters:**
+
+- `api_key` (string, required) - Your API key from https://gosms.ge
+- `options` (object, optional) - Configuration options
+  - `debug` (boolean) - Enable debug logging (default: `false`)
+  - `timeout` (number) - Request timeout in milliseconds (default: `30000`)
+  - `retries` (number) - Number of retry attempts for failed requests (default: `1`)
+
+**Example:**
+
+```typescript
+const sms = new SMS('your_api_key');
+
+// With options
+const smsDebug = new SMS('your_api_key', {
+  debug: true,
+  timeout: 15000,
+  retries: 3,
+});
+```
+
+## Methods
+
+### `send(phoneNumber: string, text: string, senderName: string, urgent?: boolean): Promise<SmsSendResponse>`
+
+Sends an SMS message to a phone number.
+
+**Parameters:**
+
+- `phoneNumber` (string, required) - Phone number as a string (e.g., '995555555555')
+- `text` (string, required) - Message text to send
+- `senderName` (string, required) - Sender name (must be pre-registered on GOSMS.ge)
+- `urgent` (boolean, optional) - Send as urgent message (default: `false`)
+
+**Returns:** Promise resolving to `SmsSendResponse`
+
+**Example:**
+
+```typescript
+const result = await sms.send('995555555555', 'Hello!', 'GOSMS.GE');
+console.log('Message ID:', result.messageId);
+console.log('Balance:', result.balance);
+
+// Send urgent message
+await sms.send('995555555555', 'Urgent alert!', 'GOSMS.GE', true);
+```
+
+### `sendOtp(phoneNumber: string): Promise<OtpSendResponse>`
+
+Sends an OTP (One-Time Password) SMS message.
+
+**Parameters:**
+
+- `phoneNumber` (string, required) - Phone number to send OTP to
+
+**Returns:** Promise resolving to `OtpSendResponse` with hash for verification
+
+**Example:**
+
+```typescript
+const result = await sms.sendOtp('995555555555');
+console.log('OTP Hash:', result.hash); // Save this for verification
+console.log('Balance:', result.balance);
+```
+
+### `verifyOtp(phoneNumber: string, hash: string, code: string): Promise<OtpVerifyResponse>`
+
+Verifies an OTP code sent to a phone number.
+
+**Parameters:**
+
+- `phoneNumber` (string, required) - Phone number that received the OTP
+- `hash` (string, required) - Hash received from `sendOtp()` response
+- `code` (string, required) - OTP code entered by the user
+
+**Returns:** Promise resolving to `OtpVerifyResponse` with verify boolean
+
+**Example:**
+
+```typescript
+const result = await sms.verifyOtp('995555555555', 'hash_from_sendOtp', '1234');
+if (result.verify) {
+  console.log('OTP verified successfully');
+} else {
+  console.log('Invalid OTP code');
+}
+```
+
+### `status(messageId: string): Promise<CheckStatusResponse>`
+
+Checks the delivery status of a sent SMS message.
+
+**Parameters:**
+
+- `messageId` (string, required) - Message ID received from `send()` response
+
+**Returns:** Promise resolving to `CheckStatusResponse` with message status information
+
+**Example:**
+
+```typescript
+const result = await sms.status('12345');
+console.log('Status:', result.status); // e.g., 'delivered', 'pending', 'failed'
+console.log('From:', result.from);
+console.log('To:', result.to);
+```
+
+### `balance(): Promise<BalanceResponse>`
+
+Checks the current SMS balance of your account.
+
+**Returns:** Promise resolving to `BalanceResponse` with balance information
+
+**Example:**
+
+```typescript
+const result = await sms.balance();
+console.log('Balance:', result.balance); // Number of SMS credits remaining
+```
+
+### `createSender(name: string): Promise<SenderCreateResponse>`
+
+Creates a new sender name for your account. Note: Sender names must be approved by GOSMS.ge before use.
+
+**Parameters:**
+
+- `name` (string, required) - Sender name to create (e.g., 'MyCompany', 'MyApp')
+
+**Returns:** Promise resolving to `SenderCreateResponse`
+
+**Example:**
+
+```typescript
+const result = await sms.createSender('MyCompany');
+if (result.success) {
+  console.log('Sender name created successfully');
+  console.log('Note: Wait for approval before using it');
+}
+```
+
+## Response Types
+
+### `SmsSendResponse`
+
+```typescript
+{
+  success: boolean;
+  userId: string;
+  messageId: number | string;
+  from: string;
+  to: string;
+  text: string;
+  balance: number;
+  sendAt: Date;
+  segment: number;
+  smsCharacters: number;
+  encode: string;
+}
+```
+
+### `OtpSendResponse`
+
+```typescript
+{
+  success: boolean;
+  hash: string;
+  balance: number;
+  to: string;
+  sendAt: Date;
+  segment: number;
+  smsCharacters: number;
+  encode: string;
+}
+```
+
+### `OtpVerifyResponse`
+
+```typescript
+{
+  success: boolean;
+  verify: boolean;
+}
+```
+
+### `CheckStatusResponse`
+
+```typescript
+{
+  success: boolean;
+  messageId: number | string;
+  from: string;
+  to: string;
+  text: string;
+  status: string;
+  sendAt: Date;
+  segment: number;
+  smsCharacters: number;
+  encode: string;
+}
+```
+
+### `BalanceResponse`
+
+```typescript
+{
+  success: boolean;
+  balance: number;
+}
+```
+
+### `SenderCreateResponse`
+
+```typescript
+{
+  success: boolean;
+}
+```
+
+### `SmsError`
+
+```typescript
+{
+  errorCode?: number;
+  message?: string;
+}
+```
+
 # Testing
 
 This package includes a comprehensive test suite with 100% code coverage.

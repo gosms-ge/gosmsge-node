@@ -134,14 +134,14 @@ describe('SMS Class', () => {
       );
     });
 
-    it('should throw TypeError if phoneNumbers is not provided', async () => {
+    it('should throw TypeError if phoneNumber is not provided', async () => {
       await expect(sms.send('' as any, 'Test', 'GOSMS')).rejects.toThrow(TypeError);
     });
 
-    it('should throw TypeError if phoneNumbers is not a string', async () => {
+    it('should throw TypeError if phoneNumber is not a string', async () => {
       await expect(sms.send(123 as any, 'Test', 'GOSMS')).rejects.toThrow(TypeError);
       await expect(sms.send(123 as any, 'Test', 'GOSMS')).rejects.toThrow(
-        'phoneNumbers is required'
+        'phoneNumber is required'
       );
     });
 
@@ -228,11 +228,11 @@ describe('SMS Class', () => {
       );
     });
 
-    it('should throw TypeError if phoneNumbers is not provided', async () => {
+    it('should throw TypeError if phoneNumber is not provided', async () => {
       await expect(sms.sendOtp('' as any)).rejects.toThrow(TypeError);
     });
 
-    it('should throw TypeError if phoneNumbers is not a string', async () => {
+    it('should throw TypeError if phoneNumber is not a string', async () => {
       await expect(sms.sendOtp(123 as any)).rejects.toThrow(TypeError);
     });
 
@@ -304,11 +304,11 @@ describe('SMS Class', () => {
       expect((result as OtpVerifyResponse).verify).toBe(false);
     });
 
-    it('should throw TypeError if phoneNumbers is not provided', async () => {
+    it('should throw TypeError if phoneNumber is not provided', async () => {
       await expect(sms.verifyOtp('' as any, 'hash', '1234')).rejects.toThrow(TypeError);
     });
 
-    it('should throw TypeError if phoneNumbers is not a string', async () => {
+    it('should throw TypeError if phoneNumber is not a string', async () => {
       await expect(sms.verifyOtp(123 as any, 'hash', '1234')).rejects.toThrow(TypeError);
     });
 
@@ -394,7 +394,7 @@ describe('SMS Class', () => {
 
     it('should throw TypeError if messageId is not provided', async () => {
       await expect(sms.status('')).rejects.toThrow(TypeError);
-      await expect(sms.status('')).rejects.toThrow('Message Id is required');
+      await expect(sms.status('')).rejects.toThrow('Message Id is required, it must be a string');
     });
 
     it('should handle API error response', async () => {
@@ -584,5 +584,4 @@ describe('SMS Class', () => {
       consoleSpy.mockRestore();
     });
   });
-
 });

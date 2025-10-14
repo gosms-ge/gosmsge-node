@@ -109,9 +109,7 @@ class OTPService {
         this.sessions.delete(phoneNumber);
         return true;
       } else {
-        console.log(
-          `❌ Invalid OTP code (Attempt ${session.attempts}/${this.maxAttempts})`
-        );
+        console.log(`❌ Invalid OTP code (Attempt ${session.attempts}/${this.maxAttempts})`);
         return false;
       }
     } catch (error) {

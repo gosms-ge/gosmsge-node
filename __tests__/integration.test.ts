@@ -62,30 +62,42 @@ describe('Integration Tests', () => {
   });
 
   describe('Real API Integration (optional)', () => {
-    testWithApi('should check balance with real API', async () => {
-      const sms = new SMS(apiKey!);
-      const result = await sms.balance();
+    testWithApi(
+      'should check balance with real API',
+      async () => {
+        const sms = new SMS(apiKey!);
+        const result = await sms.balance();
 
-      expect(result).toHaveProperty('success');
-      expect(result).toHaveProperty('balance');
-      expect(typeof (result as BalanceResponse).balance).toBe('number');
-      expect((result as BalanceResponse).success).toBe(true);
-    }, 30000);
+        expect(result).toHaveProperty('success');
+        expect(result).toHaveProperty('balance');
+        expect(typeof (result as BalanceResponse).balance).toBe('number');
+        expect((result as BalanceResponse).success).toBe(true);
+      },
+      30000
+    );
 
-    testWithApi('should handle invalid API key gracefully', async () => {
-      const sms = new SMS('invalid_api_key_12345');
+    testWithApi(
+      'should handle invalid API key gracefully',
+      async () => {
+        const sms = new SMS('invalid_api_key_12345');
 
-      await expect(sms.balance()).rejects.toMatchObject({
-        errorCode: expect.any(Number),
-        message: expect.any(String),
-      });
-    }, 30000);
+        await expect(sms.balance()).rejects.toMatchObject({
+          errorCode: expect.any(Number),
+          message: expect.any(String),
+        });
+      },
+      30000
+    );
 
-    testWithApi('should handle network timeout', async () => {
-      const sms = new SMS(apiKey!, { timeout: 1 }); // 1ms timeout
+    testWithApi(
+      'should handle network timeout',
+      async () => {
+        const sms = new SMS(apiKey!, { timeout: 1 }); // 1ms timeout
 
-      await expect(sms.balance()).rejects.toThrow();
-    }, 30000);
+        await expect(sms.balance()).rejects.toThrow();
+      },
+      30000
+    );
   });
 
   describe('Configuration Integration', () => {
@@ -137,9 +149,7 @@ describe('Integration Tests', () => {
     it('should handle network errors', async () => {
       mockFetch.mockRejectedValueOnce(new Error('Network failure'));
 
-      await expect(sms.send('995555123456', 'Test', 'GOSMS')).rejects.toThrow(
-        'Network failure'
-      );
+      await expect(sms.send('995555123456', 'Test', 'GOSMS')).rejects.toThrow('Network failure');
     });
 
     it('should handle timeout errors', async () => {
@@ -409,7 +419,13 @@ describe('Integration Tests', () => {
       mockFetch.mockResolvedValue(createMockResponse(balanceResponse));
 
       const startTime = Date.now();
-      await Promise.all([sms.balance(), sms.balance(), sms.balance(), sms.balance(), sms.balance()]);
+      await Promise.all([
+        sms.balance(),
+        sms.balance(),
+        sms.balance(),
+        sms.balance(),
+        sms.balance(),
+      ]);
       const endTime = Date.now();
 
       // Should complete reasonably fast

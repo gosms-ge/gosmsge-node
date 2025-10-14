@@ -10,19 +10,15 @@ export type ActionType =
 
 export interface ISMS {
   send(
-    phoneNumbers: string | string[],
+    phoneNumber: string,
     text: string,
     senderName: string,
     urgent?: boolean
   ): Promise<SmsSendResponse>;
 
-  sendOtp(phoneNumbers: string): Promise<OtpSendResponse>;
+  sendOtp(phoneNumber: string): Promise<OtpSendResponse>;
 
-  verifyOtp(
-    phoneNumbers: string,
-    hash: string,
-    code: string
-  ): Promise<OtpVerifyResponse>;
+  verifyOtp(phoneNumber: string, hash: string, code: string): Promise<OtpVerifyResponse>;
 
   status(messageId: string): Promise<CheckStatusResponse>;
 
@@ -31,7 +27,7 @@ export interface ISMS {
   createSender(name: string): Promise<SenderCreateResponse>;
 }
 
-export interface SmsSendResponse extends SmsError{
+export interface SmsSendResponse extends SmsError {
   success: boolean;
   userId: string;
   message_id: MessageId;
@@ -67,7 +63,7 @@ export interface BalanceResponse extends SmsError {
   balance: number;
 }
 
-export interface OtpSendResponse extends SmsError{
+export interface OtpSendResponse extends SmsError {
   success: boolean;
   hash: string;
   balance: number;
@@ -78,7 +74,7 @@ export interface OtpSendResponse extends SmsError{
   smsCharacters: number;
 }
 
-export interface OtpVerifyResponse extends SmsError{
+export interface OtpVerifyResponse extends SmsError {
   success: boolean;
   verify: boolean;
 }
@@ -88,6 +84,6 @@ export interface SmsError {
   message?: string;
 }
 
-export interface SenderCreateResponse extends SmsError{
+export interface SenderCreateResponse extends SmsError {
   success: boolean;
 }

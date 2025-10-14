@@ -73,16 +73,12 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * Validates phone number parameter
    * @private
    */
-  private validatePhoneNumber(phoneNumbers: unknown, paramName: string): void {
-    if (!phoneNumbers) {
-      throw new TypeError(
-        `${paramName} is required, it could be array for multiple numbers or string for one number`
-      );
+  private validatePhoneNumber(phoneNumber: unknown, paramName: string): void {
+    if (!phoneNumber) {
+      throw new TypeError(`${paramName} is required, it must be a string`);
     }
-    if (typeof phoneNumbers !== 'string') {
-      throw new TypeError(
-        `${paramName} is required, it could be array for multiple numbers or string for one number`
-      );
+    if (typeof phoneNumber !== 'string') {
+      throw new TypeError(`${paramName} is required, it must be a string`);
     }
   }
 
@@ -157,8 +153,8 @@ const SMS: SMSInterface = class SMS implements ISMS {
   }
 
   /**
-   * Sends an SMS message to one or multiple phone numbers
-   * @param phoneNumbers - Single phone number (string) or multiple numbers (array)
+   * Sends an SMS message to a phone number
+   * @param phoneNumber - Phone number as a string
    * @param text - Message text to send
    * @param senderName - Sender name (must be pre-registered on GOSMS.ge)
    * @param urgent - Send as urgent message (default: false)
@@ -174,30 +170,29 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * ```
    */
   async send(
-    phoneNumbers: string | string[],
+    phoneNumber: string,
     text: string,
     senderName: string,
     urgent: boolean = false
   ): Promise<SmsSendResponse> {
-    this.validatePhoneNumber(phoneNumbers, 'phoneNumbers');
+    this.validatePhoneNumber(phoneNumber, 'phoneNumber');
     this.validateString(text, 'text', 'Second');
     this.validateString(senderName, 'senderName', 'Third');
 
     return this.makeRequest<SmsSendResponse>('sendsms', {
       api_key: this.apiKey,
-      to: phoneNumbers,
+      to: phoneNumber,
       from: senderName,
       text: text,
       urgent: urgent,
     });
   }
 
-
   /**
    * Sends an OTP (One-Time Password) SMS message
-   * @param phoneNumbers - Phone number to send OTP to
+   * @param phoneNumber - Phone number to send OTP to
    * @returns Promise resolving to OTP send response with hash for verification
-   * @throws {TypeError} If phoneNumbers parameter is invalid
+   * @throws {TypeError} If phoneNumber parameter is invalid
    * @example
    * ```typescript
    * const result = await sms.sendOtp('995555123456');
@@ -205,18 +200,18 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * console.log('Balance:', result.balance);
    * ```
    */
-  async sendOtp(phoneNumbers: string): Promise<OtpSendResponse> {
-    this.validatePhoneNumber(phoneNumbers, 'phoneNumbers');
+  async sendOtp(phoneNumber: string): Promise<OtpSendResponse> {
+    this.validatePhoneNumber(phoneNumber, 'phoneNumber');
 
     return this.makeRequest<OtpSendResponse>('otp/send', {
       api_key: this.apiKey,
-      phone: phoneNumbers,
+      phone: phoneNumber,
     });
   }
 
   /**
    * Verifies an OTP code sent to a phone number
-   * @param phoneNumbers - Phone number that received the OTP
+   * @param phoneNumber - Phone number that received the OTP
    * @param hash - Hash received from sendOtp() response
    * @param code - OTP code entered by the user
    * @returns Promise resolving to verification result with verify boolean
@@ -231,18 +226,14 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * }
    * ```
    */
-  async verifyOtp(
-    phoneNumbers: string,
-    hash: string,
-    code: string
-  ): Promise<OtpVerifyResponse> {
-    this.validatePhoneNumber(phoneNumbers, 'phoneNumbers');
+  async verifyOtp(phoneNumber: string, hash: string, code: string): Promise<OtpVerifyResponse> {
+    this.validatePhoneNumber(phoneNumber, 'phoneNumber');
     this.validateString(hash, 'hash', 'Second');
     this.validateString(code, 'code', 'Third');
 
     return this.makeRequest<OtpVerifyResponse>('otp/verify', {
       api_key: this.apiKey,
-      phone: phoneNumbers,
+      phone: phoneNumber,
       hash: hash,
       code: code,
     });
@@ -263,7 +254,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
    */
   async status(messageId: string): Promise<CheckStatusResponse> {
     if (!messageId) {
-      throw new TypeError('Message Id is required, it should be string');
+      throw new TypeError('Message Id is required, it must be a string');
     }
 
     return this.makeRequest<CheckStatusResponse>('checksms', {
@@ -310,6 +301,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
 
 export {
   SMS,
+  ISMS,
   BalanceResponse,
   SmsSendResponse,
   CheckStatusResponse,

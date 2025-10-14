@@ -141,9 +141,7 @@ async function waitForDelivery(
     try {
       const response = (await sms.status(messageId)) as CheckStatusResponse;
 
-      console.log(
-        `Attempt ${attempt}/${maxAttempts}: Status = ${response.status}`
-      );
+      console.log(`Attempt ${attempt}/${maxAttempts}: Status = ${response.status}`);
 
       if (response.status.toLowerCase() === 'delivered') {
         console.log('✅ Message delivered successfully!');

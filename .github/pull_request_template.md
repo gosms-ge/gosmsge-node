@@ -27,9 +27,9 @@ Relates to #(issue number)
 
 <!-- List the specific changes made in this PR -->
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Testing
 
@@ -78,6 +78,7 @@ Relates to #(issue number)
 <!-- If this is a breaking change, describe the impact and migration path -->
 
 **If applicable:**
+
 - Impact on existing users:
 - Migration guide:
 - Deprecation notices:
@@ -118,6 +119,7 @@ Relates to #(issue number)
 ---
 
 **For Maintainers:**
+
 - [ ] Code review completed
 - [ ] Approved for merge
 - [ ] Semantic versioning impact noted (major/minor/patch)
