@@ -1,3 +1,9 @@
+## [4.4.0](https://github.com/gosms-ge/gosmsge-node/compare/v4.3.0...v4.4.0) (2026-02-22)
+
+### ✨ Features
+
+* update npm-publish.yml to add permissions for contents, issues, and pull-requests ([f66a9a5](https://github.com/gosms-ge/gosmsge-node/commit/f66a9a5995cff191a55af391b7e5e850cb587802))
+
 ## [4.3.0](https://github.com/gosms-ge/gosmsge-node/compare/v4.2.2...v4.3.0) (2026-02-22)
 
 ### ✨ Features
