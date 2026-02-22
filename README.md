@@ -2,8 +2,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/@gosmsge/gosmsge-node.svg)](https://www.npmjs.com/package/@gosmsge/gosmsge-node)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![Node.js Version](https://img.shields.io/node/v/@gosmsge/gosmsge-node.svg)](https://nodejs.org)
-![Node.js Package](https://github.com/gosms-ge/gosmsge-node/workflows/Node.js%20Package/badge.svg)
-[![CircleCI](https://circleci.com/gh/gosms-ge/gosmsge-node.svg?style=shield)](https://circleci.com/gh/gosms-ge/gosmsge-node)
+[![Release](https://github.com/gosms-ge/gosmsge-node/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/gosms-ge/gosmsge-node/actions/workflows/npm-publish.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)
 [![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
@@ -46,6 +45,24 @@ sms
   .send('995555555555', 'Urgent message!', 'GOSMS.GE', true)
   .then(body => console.log(body))
   .catch(err => console.log(err.message));
+```
+
+## Send Bulk SMS
+
+```js
+const { SMS } = require('@gosmsge/gosmsge-node');
+
+const sms = new SMS('your_api_key');
+
+sms
+  .sendBulk('GOSMS.GE', ['995555111111', '995555222222', '995555333333'], 'Hello everyone!')
+  .then(body => {
+    console.log(`Sent: ${body.successCount}/${body.totalCount}`);
+    body.messages.forEach(msg => {
+      if (!msg.success) console.log(`Failed: ${msg.to} - ${msg.error}`);
+    });
+  })
+  .catch(err => console.log('Error:', err.message));
 ```
 
 ## Check Message Status
@@ -137,7 +154,7 @@ sms
 ## TypeScript Usage
 
 ```typescript
-import { SMS, SmsSendResponse, SmsError } from '@gosmsge/gosmsge-node';
+import { SMS, SmsSendResponse, SmsError, GoSmsErrorCode } from '@gosmsge/gosmsge-node';
 
 const sms = new SMS('your_api_key');
 
@@ -153,7 +170,11 @@ async function sendMessage() {
     console.log('Balance:', response.balance);
   } catch (error) {
     const smsError = error as SmsError;
-    console.error('Error:', smsError.message);
+    if (smsError.errorCode === GoSmsErrorCode.INSUFFICIENT_BALANCE) {
+      console.error('Not enough credits!');
+    } else {
+      console.error('Error:', smsError.message);
+    }
   }
 }
 
@@ -213,6 +234,30 @@ console.log('Balance:', result.balance);
 
 // Send urgent message
 await sms.send('995555555555', 'Urgent alert!', 'GOSMS.GE', true);
+```
+
+### `sendBulk(senderName: string, phoneNumbers: string[], text: string, urgent?: boolean, noSmsNumber?: string): Promise<SendBulkSmsResponse>`
+
+Sends a bulk SMS message to multiple recipients (max 1000).
+
+**Parameters:**
+
+- `senderName` (string, required) - Sender name (must be pre-registered on GOSMS.ge)
+- `phoneNumbers` (string[], required) - Array of phone numbers (max 1000)
+- `text` (string, required) - Message text to send
+- `urgent` (boolean, optional) - Send as urgent message (default: `false`)
+- `noSmsNumber` (string, optional) - Opt-out number for advertising campaigns
+
+**Returns:** Promise resolving to `SendBulkSmsResponse` with per-recipient results
+
+**Example:**
+
+```typescript
+const result = await sms.sendBulk('GOSMS.GE', ['995555111111', '995555222222'], 'Hello everyone!');
+console.log(`Sent: ${result.successCount}/${result.totalCount}`);
+result.messages.forEach(msg => {
+  if (!msg.success) console.log(`Failed: ${msg.to} - ${msg.error}`);
+});
 ```
 
 ### `sendOtp(phoneNumber: string): Promise<OtpSendResponse>`
@@ -315,16 +360,44 @@ if (result.success) {
 ```typescript
 {
   success: boolean;
-  userId: string;
-  messageId: number | string;
+  messageId: number;
   from: string;
   to: string;
   text: string;
   balance: number;
-  sendAt: Date;
+  sendAt: string; // ISO 8601 date string
   segment: number;
   smsCharacters: number;
   encode: string;
+}
+```
+
+### `SendBulkSmsResponse`
+
+```typescript
+{
+  success: boolean;
+  totalCount: number;
+  successCount: number;
+  failedCount: number;
+  balance: number;
+  from: string;
+  text: string;
+  encode: string;
+  segment: number;
+  smsCharacters: number;
+  messages: BulkSmsResult[];
+}
+```
+
+### `BulkSmsResult`
+
+```typescript
+{
+  messageId: number;
+  to: string;
+  success: boolean;
+  error?: string;
 }
 ```
 
@@ -336,7 +409,7 @@ if (result.success) {
   hash: string;
   balance: number;
   to: string;
-  sendAt: Date;
+  sendAt: string; // ISO 8601 date string
   segment: number;
   smsCharacters: number;
   encode: string;
@@ -357,12 +430,12 @@ if (result.success) {
 ```typescript
 {
   success: boolean;
-  messageId: number | string;
+  messageId: number;
   from: string;
   to: string;
   text: string;
   status: string;
-  sendAt: Date;
+  sendAt: string; // ISO 8601 date string
   segment: number;
   smsCharacters: number;
   encode: string;
@@ -395,6 +468,27 @@ if (result.success) {
 }
 ```
 
+### `GoSmsErrorCode`
+
+```typescript
+{
+  INVALID_API_KEY: 100;
+  INVALID_SENDER: 101;
+  INSUFFICIENT_BALANCE: 102;
+  INVALID_PARAMETERS: 103;
+  MESSAGE_NOT_FOUND: 104;
+  INVALID_PHONE: 105;
+  OTP_FAILED: 106;
+  SENDER_EXISTS: 107;
+  NOT_CONFIGURED: 108;
+  TOO_MANY_REQUESTS: 109;
+  ACCOUNT_LOCKED: 110;
+  OTP_EXPIRED: 111;
+  OTP_ALREADY_USED: 112;
+  INVALID_NO_SMS_NUMBER: 113;
+}
+```
+
 # Testing
 
 This package includes a comprehensive test suite with 100% code coverage.
@@ -418,14 +512,15 @@ The test suite covers:
 
 - ✅ Constructor validation (API key requirements)
 - ✅ SMS sending (regular and urgent messages)
+- ✅ Bulk SMS sending (multiple recipients, partial failures)
 - ✅ OTP sending and verification
 - ✅ Message status checking
 - ✅ Balance checking
 - ✅ Sender name creation
 - ✅ Input validation for all methods
 - ✅ Error handling (API errors and network failures)
-
-**Current Coverage: 100%** (statements, branches, functions, lines)
+- ✅ Retry logic with exponential backoff
+- ✅ Integration workflow tests
 
 # Versioning & Releases
 

@@ -624,9 +624,7 @@ describe('SMS Class', () => {
         json: async () => mockError,
       } as Response);
 
-      await expect(
-        sms.sendBulk('GOSMS', ['995555111111'], 'Test')
-      ).rejects.toEqual(mockError);
+      await expect(sms.sendBulk('GOSMS', ['995555111111'], 'Test')).rejects.toEqual(mockError);
     });
 
     it('should include noSmsNumber when provided', async () => {
