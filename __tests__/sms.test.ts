@@ -1,12 +1,14 @@
 import {
   SMS,
   SmsSendResponse,
+  SendBulkSmsResponse,
   OtpSendResponse,
   OtpVerifyResponse,
   CheckStatusResponse,
   BalanceResponse,
   SmsError,
   SenderCreateResponse,
+  GoSmsErrorCode,
 } from '../index';
 
 // Mock global fetch
@@ -55,17 +57,13 @@ describe('SMS Class', () => {
     it('should send SMS successfully with valid parameters', async () => {
       const mockResponse: SmsSendResponse = {
         success: true,
-        userId: 'user123',
-        message_id: '12345',
-        messageId: '12345',
+        messageId: 12345,
         from: 'GOSMS',
         to: '995555123456',
         text: 'Test message',
-        newService: false,
-        msgCount: 1,
-        sendAt: new Date(),
+        sendAt: '2025-01-15T10:30:00.000Z',
         balance: 100,
-        encode: 'UTF-8',
+        encode: 'default',
         segment: 1,
         smsCharacters: 12,
       };
@@ -98,17 +96,13 @@ describe('SMS Class', () => {
     it('should send urgent SMS when urgent flag is true', async () => {
       const mockResponse: SmsSendResponse = {
         success: true,
-        userId: 'user123',
-        message_id: '12345',
-        messageId: '12345',
+        messageId: 12345,
         from: 'GOSMS',
         to: '995555123456',
         text: 'Urgent message',
-        newService: false,
-        msgCount: 1,
-        sendAt: new Date(),
+        sendAt: '2025-01-15T10:30:00.000Z',
         balance: 100,
-        encode: 'UTF-8',
+        encode: 'default',
         segment: 1,
         smsCharacters: 14,
       };
@@ -135,7 +129,7 @@ describe('SMS Class', () => {
     });
 
     it('should throw TypeError if phoneNumber is not provided', async () => {
-      await expect(sms.send('' as any, 'Test', 'GOSMS')).rejects.toThrow(TypeError);
+      await expect(sms.send('', 'Test', 'GOSMS')).rejects.toThrow(TypeError);
     });
 
     it('should throw TypeError if phoneNumber is not a string', async () => {
@@ -146,8 +140,8 @@ describe('SMS Class', () => {
     });
 
     it('should throw TypeError if text is not provided', async () => {
-      await expect(sms.send('995555123456', '' as any, 'GOSMS')).rejects.toThrow(TypeError);
-      await expect(sms.send('995555123456', '' as any, 'GOSMS')).rejects.toThrow(
+      await expect(sms.send('995555123456', '', 'GOSMS')).rejects.toThrow(TypeError);
+      await expect(sms.send('995555123456', '', 'GOSMS')).rejects.toThrow(
         'Second argument text is required'
       );
     });
@@ -157,8 +151,8 @@ describe('SMS Class', () => {
     });
 
     it('should throw TypeError if senderName is not provided', async () => {
-      await expect(sms.send('995555123456', 'Test', '' as any)).rejects.toThrow(TypeError);
-      await expect(sms.send('995555123456', 'Test', '' as any)).rejects.toThrow(
+      await expect(sms.send('995555123456', 'Test', '')).rejects.toThrow(TypeError);
+      await expect(sms.send('995555123456', 'Test', '')).rejects.toThrow(
         'Third argument senderName is required'
       );
     });
@@ -169,8 +163,8 @@ describe('SMS Class', () => {
 
     it('should handle API error response', async () => {
       const mockError: SmsError = {
-        errorCode: 101,
-        message: 'Invalid API key',
+        errorCode: GoSmsErrorCode.INVALID_API_KEY,
+        message: 'Invalid or missing API key',
       };
 
       mockFetch.mockResolvedValueOnce({
@@ -201,8 +195,8 @@ describe('SMS Class', () => {
         hash: 'abc123hash',
         balance: 100,
         to: '995555123456',
-        sendAt: new Date(),
-        encode: 'UTF-8',
+        sendAt: '2025-01-15T10:30:00.000Z',
+        encode: 'default',
         segment: 1,
         smsCharacters: 20,
       };
@@ -238,8 +232,8 @@ describe('SMS Class', () => {
 
     it('should handle API error response', async () => {
       const mockError: SmsError = {
-        errorCode: 102,
-        message: 'Invalid phone number',
+        errorCode: GoSmsErrorCode.INVALID_PHONE,
+        message: 'Invalid phone number format',
       };
 
       mockFetch.mockResolvedValueOnce({
@@ -336,7 +330,7 @@ describe('SMS Class', () => {
 
     it('should handle API error response', async () => {
       const mockError: SmsError = {
-        errorCode: 103,
+        errorCode: GoSmsErrorCode.OTP_EXPIRED,
         message: 'OTP expired',
       };
 
@@ -359,16 +353,15 @@ describe('SMS Class', () => {
     it('should check message status successfully', async () => {
       const mockResponse: CheckStatusResponse = {
         success: true,
-        message_id: '12345',
-        messageId: '12345',
+        messageId: 12345,
         from: 'GOSMS',
         to: '995555123456',
         text: 'Test message',
-        encode: 'UTF-8',
-        sendAt: new Date(),
+        encode: 'default',
+        sendAt: '2025-01-15T10:30:00.000Z',
         segment: 1,
         smsCharacters: 12,
-        status: 'delivered',
+        status: 'DELIVERED',
       };
 
       mockFetch.mockResolvedValueOnce({
@@ -399,7 +392,7 @@ describe('SMS Class', () => {
 
     it('should handle API error response', async () => {
       const mockError: SmsError = {
-        errorCode: 104,
+        errorCode: GoSmsErrorCode.MESSAGE_NOT_FOUND,
         message: 'Message not found',
       };
 
@@ -434,19 +427,21 @@ describe('SMS Class', () => {
 
       expect(result).toEqual(mockResponse);
       expect(mockFetch).toHaveBeenCalledWith(
-        `https://api.gosms.ge/api/sms-balance?api_key=${validApiKey}`,
+        'https://api.gosms.ge/api/sms-balance',
         expect.objectContaining({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({}),
+          body: JSON.stringify({
+            api_key: validApiKey,
+          }),
         })
       );
     });
 
     it('should handle API error response', async () => {
       const mockError: SmsError = {
-        errorCode: 105,
-        message: 'Account not found',
+        errorCode: GoSmsErrorCode.INVALID_API_KEY,
+        message: 'Invalid or missing API key',
       };
 
       mockFetch.mockResolvedValueOnce({
@@ -499,7 +494,7 @@ describe('SMS Class', () => {
 
     it('should handle API error response', async () => {
       const mockError: SmsError = {
-        errorCode: 106,
+        errorCode: GoSmsErrorCode.SENDER_EXISTS,
         message: 'Sender name already exists',
       };
 
@@ -515,6 +510,160 @@ describe('SMS Class', () => {
       mockFetch.mockRejectedValueOnce(new Error('API unavailable'));
 
       await expect(sms.createSender('MyCompany')).rejects.toThrow('API unavailable');
+    });
+  });
+
+  describe('sendBulk() method', () => {
+    let sms: InstanceType<typeof SMS>;
+
+    beforeEach(() => {
+      sms = new SMS(validApiKey);
+    });
+
+    it('should send bulk SMS successfully', async () => {
+      const mockResponse: SendBulkSmsResponse = {
+        success: true,
+        totalCount: 2,
+        successCount: 2,
+        failedCount: 0,
+        balance: 98,
+        from: 'GOSMS',
+        text: 'Bulk message',
+        encode: 'default',
+        segment: 1,
+        smsCharacters: 12,
+        messages: [
+          { messageId: 100, to: '995555111111', success: true },
+          { messageId: 101, to: '995555222222', success: true },
+        ],
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockResponse,
+      } as Response);
+
+      const result = await sms.sendBulk('GOSMS', ['995555111111', '995555222222'], 'Bulk message');
+
+      expect(result).toEqual(mockResponse);
+      expect(result.totalCount).toBe(2);
+      expect(result.successCount).toBe(2);
+      expect(result.messages).toHaveLength(2);
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://api.gosms.ge/api/sendbulk',
+        expect.objectContaining({
+          method: 'POST',
+          body: JSON.stringify({
+            api_key: validApiKey,
+            from: 'GOSMS',
+            to: ['995555111111', '995555222222'],
+            text: 'Bulk message',
+            urgent: false,
+          }),
+        })
+      );
+    });
+
+    it('should handle partial failures', async () => {
+      const mockResponse: SendBulkSmsResponse = {
+        success: true,
+        totalCount: 2,
+        successCount: 1,
+        failedCount: 1,
+        balance: 99,
+        from: 'GOSMS',
+        text: 'Test',
+        encode: 'default',
+        segment: 1,
+        smsCharacters: 4,
+        messages: [
+          { messageId: 200, to: '995555111111', success: true },
+          { messageId: 0, to: '995555000000', success: false, error: 'Blacklisted' },
+        ],
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockResponse,
+      } as Response);
+
+      const result = await sms.sendBulk('GOSMS', ['995555111111', '995555000000'], 'Test');
+
+      expect(result.failedCount).toBe(1);
+      expect(result.messages[1].success).toBe(false);
+      expect(result.messages[1].error).toBe('Blacklisted');
+    });
+
+    it('should throw TypeError if senderName is not provided', async () => {
+      await expect(sms.sendBulk('', ['995555111111'], 'Test')).rejects.toThrow(TypeError);
+    });
+
+    it('should throw TypeError if phoneNumbers is not an array', async () => {
+      await expect(sms.sendBulk('GOSMS', '' as any, 'Test')).rejects.toThrow(TypeError);
+      await expect(sms.sendBulk('GOSMS', '' as any, 'Test')).rejects.toThrow(
+        'phoneNumbers is required'
+      );
+    });
+
+    it('should throw TypeError if phoneNumbers is empty', async () => {
+      await expect(sms.sendBulk('GOSMS', [], 'Test')).rejects.toThrow(TypeError);
+    });
+
+    it('should throw TypeError if text is not provided', async () => {
+      await expect(sms.sendBulk('GOSMS', ['995555111111'], '')).rejects.toThrow(TypeError);
+    });
+
+    it('should handle API error response', async () => {
+      const mockError: SmsError = {
+        errorCode: GoSmsErrorCode.INSUFFICIENT_BALANCE,
+        message: 'Insufficient SMS balance',
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        json: async () => mockError,
+      } as Response);
+
+      await expect(
+        sms.sendBulk('GOSMS', ['995555111111'], 'Test')
+      ).rejects.toEqual(mockError);
+    });
+
+    it('should include noSmsNumber when provided', async () => {
+      const mockResponse: SendBulkSmsResponse = {
+        success: true,
+        totalCount: 1,
+        successCount: 1,
+        failedCount: 0,
+        balance: 99,
+        from: 'GOSMS',
+        text: 'Ad',
+        encode: 'default',
+        segment: 1,
+        smsCharacters: 2,
+        messages: [{ messageId: 300, to: '995555111111', success: true }],
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => mockResponse,
+      } as Response);
+
+      await sms.sendBulk('GOSMS', ['995555111111'], 'Ad', false, '0000');
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://api.gosms.ge/api/sendbulk',
+        expect.objectContaining({
+          body: JSON.stringify({
+            api_key: validApiKey,
+            from: 'GOSMS',
+            to: ['995555111111'],
+            text: 'Ad',
+            urgent: false,
+            noSmsNumber: '0000',
+          }),
+        })
+      );
     });
   });
 

@@ -1,11 +1,14 @@
 import {
   BalanceResponse,
+  BulkSmsResult,
   CheckStatusResponse,
   ErrorMessageCode,
+  GoSmsErrorCode,
   ISMS,
   MessageId,
   OtpSendResponse,
   OtpVerifyResponse,
+  SendBulkSmsResponse,
   SenderCreateResponse,
   SmsError,
   SmsSendResponse,
@@ -189,6 +192,52 @@ const SMS: SMSInterface = class SMS implements ISMS {
   }
 
   /**
+   * Sends a bulk SMS message to multiple recipients (max 1000)
+   * @param senderName - Sender name (must be pre-registered on GOSMS.ge)
+   * @param phoneNumbers - Array of phone numbers
+   * @param text - Message text to send
+   * @param urgent - Send as urgent message (default: false)
+   * @param noSmsNumber - Optional opt-out number for advertising campaigns
+   * @returns Promise resolving to bulk send response with per-recipient results
+   * @throws {TypeError} If parameters are invalid
+   * @example
+   * ```typescript
+   * const result = await sms.sendBulk('GOSMS.GE', ['995555111111', '995555222222'], 'Hello!');
+   * console.log(`Sent: ${result.successCount}/${result.totalCount}`);
+   * result.messages.forEach(msg => {
+   *   if (!msg.success) console.log(`Failed: ${msg.to} - ${msg.error}`);
+   * });
+   * ```
+   */
+  async sendBulk(
+    senderName: string,
+    phoneNumbers: string[],
+    text: string,
+    urgent: boolean = false,
+    noSmsNumber?: string
+  ): Promise<SendBulkSmsResponse> {
+    this.validateString(senderName, 'senderName', 'First');
+    if (!Array.isArray(phoneNumbers) || phoneNumbers.length === 0) {
+      throw new TypeError('phoneNumbers is required, it must be a non-empty array of strings');
+    }
+    this.validateString(text, 'text', 'Third');
+
+    const payload: Record<string, unknown> = {
+      api_key: this.apiKey,
+      from: senderName,
+      to: phoneNumbers,
+      text: text,
+      urgent: urgent,
+    };
+
+    if (noSmsNumber) {
+      payload.noSmsNumber = noSmsNumber;
+    }
+
+    return this.makeRequest<SendBulkSmsResponse>('sendbulk', payload);
+  }
+
+  /**
    * Sends an OTP (One-Time Password) SMS message
    * @param phoneNumber - Phone number to send OTP to
    * @returns Promise resolving to OTP send response with hash for verification
@@ -273,7 +322,9 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * ```
    */
   async balance(): Promise<BalanceResponse> {
-    return this.makeRequest<BalanceResponse>(`sms-balance?api_key=${this.apiKey}`, {});
+    return this.makeRequest<BalanceResponse>('sms-balance', {
+      api_key: this.apiKey,
+    });
   }
 
   /**
@@ -303,12 +354,15 @@ export {
   SMS,
   ISMS,
   BalanceResponse,
+  BulkSmsResult,
   SmsSendResponse,
+  SendBulkSmsResponse,
   CheckStatusResponse,
   OtpSendResponse,
   OtpVerifyResponse,
   SenderCreateResponse,
   SmsError,
   ErrorMessageCode,
+  GoSmsErrorCode,
   MessageId,
 };

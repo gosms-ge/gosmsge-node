@@ -219,15 +219,11 @@ describe('Integration Tests', () => {
 
       const mockResponse: SmsSendResponse = {
         success: true,
-        userId: 'user123',
-        message_id: '12345',
-        messageId: '12345',
+        messageId: 12345,
         from: 'GOSMS',
         to: '995555123456',
         text: 'Test',
-        newService: false,
-        msgCount: 1,
-        sendAt: new Date(),
+        sendAt: '2025-01-15T10:30:00.000Z',
         balance: 100,
         encode: 'UTF-8',
         segment: 1,
@@ -246,15 +242,11 @@ describe('Integration Tests', () => {
 
       const mockResponse: SmsSendResponse = {
         success: true,
-        userId: 'user123',
-        message_id: '12345',
-        messageId: '12345',
+        messageId: 12345,
         from: 'GOSMS',
         to: '995555123456',
         text: 'Test',
-        newService: false,
-        msgCount: 1,
-        sendAt: new Date(),
+        sendAt: '2025-01-15T10:30:00.000Z',
         balance: 100,
         encode: 'UTF-8',
         segment: 1,
@@ -302,15 +294,11 @@ describe('Integration Tests', () => {
       // 2. Send SMS
       const sendResponse: SmsSendResponse = {
         success: true,
-        userId: 'user123',
-        message_id: '12345',
-        messageId: '12345',
+        messageId: 12345,
         from: 'GOSMS',
         to: '995555123456',
         text: 'Test workflow',
-        newService: false,
-        msgCount: 1,
-        sendAt: new Date(),
+        sendAt: '2025-01-15T10:30:00.000Z',
         balance: 99,
         encode: 'UTF-8',
         segment: 1,
@@ -326,13 +314,12 @@ describe('Integration Tests', () => {
       // 3. Check status
       const statusResponse: CheckStatusResponse = {
         success: true,
-        message_id: '12345',
-        messageId: '12345',
+        messageId: 12345,
         from: 'GOSMS',
         to: '995555123456',
         text: 'Test workflow',
         encode: 'UTF-8',
-        sendAt: new Date(),
+        sendAt: '2025-01-15T10:30:00.000Z',
         segment: 1,
         smsCharacters: 13,
         status: 'delivered',
@@ -340,7 +327,7 @@ describe('Integration Tests', () => {
 
       mockFetch.mockResolvedValueOnce(createMockResponse(statusResponse));
 
-      const status = await sms.status(messageId.toString());
+      const status = await sms.status(String(messageId));
       expect((status as CheckStatusResponse).status).toBeDefined();
     });
 
@@ -353,7 +340,7 @@ describe('Integration Tests', () => {
         hash: 'test_hash_123',
         balance: 100,
         to: '995555123456',
-        sendAt: new Date(),
+        sendAt: '2025-01-15T10:30:00.000Z',
         encode: 'UTF-8',
         segment: 1,
         smsCharacters: 20,
