@@ -1,3 +1,10 @@
+## [4.4.1](https://github.com/gosms-ge/gosmsge-node/compare/v4.4.0...v4.4.1) (2026-02-22)
+
+### 🔧 Chores
+
+* add chore type to release rules in .releaserc.json ([4b688f9](https://github.com/gosms-ge/gosmsge-node/commit/4b688f99871f9547af8eb9f9c9e49039c030d8b9))
+* bump version to 4.4.2 in package.json ([3ec674e](https://github.com/gosms-ge/gosmsge-node/commit/3ec674e0476b3194095c24e70c951d8e7fa92d11))
+
 ## [4.4.0](https://github.com/gosms-ge/gosmsge-node/compare/v4.3.0...v4.4.0) (2026-02-22)
 
 ### ✨ Features
