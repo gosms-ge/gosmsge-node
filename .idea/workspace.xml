@@ -4,25 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="feat: update response interfaces to extend SmsError">
-      <change beforePath="$PROJECT_DIR$/.github/pull_request_template.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/pull_request_template.md" afterDir="false" />
+    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="chore: update package.json and README for semantic-release adjustments; add release.yml for GitHub Actions">
+      <change afterPath="$PROJECT_DIR$/.github/workflows/release.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/CONTRIBUTING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.releaserc.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/integration.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/integration.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/sms.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/sms.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/typescript/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/examples/typescript/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/typescript/advanced-usage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/examples/typescript/advanced-usage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/typescript/check-balance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/examples/typescript/check-balance.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/typescript/check-sms.ts" beforeDir="false" afterPath="$PROJECT_DIR$/examples/typescript/check-sms.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/typescript/otp-sms-verify.ts" beforeDir="false" afterPath="$PROJECT_DIR$/examples/typescript/otp-sms-verify.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_/Users/levanjmukhadze/Projects/gosms/gosmsge-node" value="1buG61xYigeAaPxXydA7fXBqwAH" />
+    </persistenceIdMap>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,6 +42,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -54,33 +56,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.google.cloudcode.ide_session_index": "20251010_0001",
-    "git-widget-placeholder": "master",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/levanjmukhadze/Projects/gosms/gosmsge-node",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "npm.format.executor": "Run",
-    "npm.format:check.executor": "Run",
-    "npm.lint:fix.executor": "Run",
-    "npm.test.executor": "Run",
-    "npm.test:coverage.executor": "Run",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "/Users/levanjmukhadze/Projects/gosms/gosmsge-node/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Jest.Integration Tests.Performance and Load.should handle rapid-fire requests.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Integration Tests.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SMS Class.send() method.should throw TypeError if phoneNumber is not provided.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SMS Class.send() method.should throw TypeError if senderName is not a string.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SMS Class.send() method.should throw TypeError if senderName is not provided.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SMS Class.send() method.should throw TypeError if text is not provided.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.google.cloudcode.ide_session_index&quot;: &quot;20260222_0000&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/levanjmukhadze/Projects/gosms/gosmsge-node&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;/Users/levanjmukhadze/Projects/gosms/gosmsge-node/node_modules/jest&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;npm.format.executor&quot;: &quot;Run&quot;,
+    &quot;npm.format:check.executor&quot;: &quot;Run&quot;,
+    &quot;npm.lint:fix.executor&quot;: &quot;Run&quot;,
+    &quot;npm.semantic-release.executor&quot;: &quot;Run&quot;,
+    &quot;npm.test.executor&quot;: &quot;Run&quot;,
+    &quot;npm.test:coverage.executor&quot;: &quot;Run&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/levanjmukhadze/Projects/gosms/gosmsge-node/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\gosms\gosmsge-node\examples" />
@@ -88,52 +99,66 @@
       <recent name="H:\node\gosmsge-node\examples" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.test">
-    <configuration name="format" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="format" />
-      </scripts>
+  <component name="RunManager" selected="npm.semantic-release">
+    <configuration name="Integration Tests" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
       <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/__tests__/integration.test.ts" />
+      <test-names>
+        <test-name value="Integration Tests" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="format:check" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="format:check" />
-      </scripts>
+    <configuration name="Integration Tests.Performance and Load.should handle rapid-fire requests" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
       <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/integration.test.ts" />
+      <test-names>
+        <test-name value="Integration Tests" />
+        <test-name value="Performance and Load" />
+        <test-name value="should handle rapid-fire requests" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="lint:fix" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="lint:fix" />
-      </scripts>
+    <configuration name="SMS Class.send() method.should throw TypeError if senderName is not a string" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
       <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/sms.test.ts" />
+      <test-names>
+        <test-name value="SMS Class" />
+        <test-name value="send() method" />
+        <test-name value="should throw TypeError if senderName is not a string" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="test" />
-      </scripts>
+    <configuration name="SMS Class.send() method.should throw TypeError if senderName is not provided" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
       <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/sms.test.ts" />
+      <test-names>
+        <test-name value="SMS Class" />
+        <test-name value="send() method" />
+        <test-name value="should throw TypeError if senderName is not provided" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="test:coverage" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="semantic-release" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="test:coverage" />
+        <script value="semantic-release" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -141,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.test:coverage" />
-        <item itemvalue="npm.test" />
-        <item itemvalue="npm.format:check" />
-        <item itemvalue="npm.format" />
-        <item itemvalue="npm.lint:fix" />
+        <item itemvalue="npm.semantic-release" />
+        <item itemvalue="Jest.Integration Tests.Performance and Load.should handle rapid-fire requests" />
+        <item itemvalue="Jest.Integration Tests" />
+        <item itemvalue="Jest.SMS Class.send() method.should throw TypeError if senderName is not a string" />
+        <item itemvalue="Jest.SMS Class.send() method.should throw TypeError if senderName is not provided" />
       </list>
     </recent_temporary>
   </component>
@@ -181,6 +206,8 @@
       <workItem from="1702337660857" duration="242000" />
       <workItem from="1702341921014" duration="673000" />
       <workItem from="1760124257988" duration="6711000" />
+      <workItem from="1760449194390" duration="1561000" />
+      <workItem from="1771779797853" duration="4150000" />
     </task>
     <task id="LOCAL-00001" summary="feat(API-endpoint): change endpoint">
       <created>1602462640667</created>
@@ -466,7 +493,63 @@
       <option name="project" value="LOCAL" />
       <updated>1760142298922</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="refactor: standardize `phoneNumber` parameter formatting and update validation rules">
+      <option name="closed" value="true" />
+      <created>1760447759908</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1760447759908</updated>
+    </task>
+    <task id="LOCAL-00042" summary="feat: add bulk SMS sending functionality and related types">
+      <option name="closed" value="true" />
+      <created>1771780687058</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1771780687058</updated>
+    </task>
+    <task id="LOCAL-00043" summary="feat: update npm-publish.yml to add permissions for contents, issues, and pull-requests">
+      <option name="closed" value="true" />
+      <created>1771781031442</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1771781031442</updated>
+    </task>
+    <task id="LOCAL-00044" summary="chore: bump version to 4.4.0 in package.json">
+      <option name="closed" value="true" />
+      <created>1771781660168</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1771781660168</updated>
+    </task>
+    <task id="LOCAL-00045" summary="feat: update npm-publish.yml for Node.js version 22.x and enhance README with bulk SMS functionality">
+      <option name="closed" value="true" />
+      <created>1771782669021</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1771782669021</updated>
+    </task>
+    <task id="LOCAL-00046" summary="chore: bump version to 4.4.2 in package.json">
+      <option name="closed" value="true" />
+      <created>1771783000855</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1771783000855</updated>
+    </task>
+    <task id="LOCAL-00047" summary="chore: add chore type to release rules in .releaserc.json">
+      <option name="closed" value="true" />
+      <created>1771783316387</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1771783316387</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -508,16 +591,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat: add type Definition" />
-    <MESSAGE value="fix: type Definition" />
-    <MESSAGE value="fix: error interface" />
-    <MESSAGE value="fix: create interfaces" />
-    <MESSAGE value="update vulnerable dependency" />
-    <MESSAGE value="version 3.1.0" />
-    <MESSAGE value="node version update 12 to 16" />
-    <MESSAGE value="version 3.2.1" />
-    <MESSAGE value="version 3.2.2" />
-    <MESSAGE value="version 3.2.3" />
     <MESSAGE value="version 3.2.4" />
     <MESSAGE value="version 3.2.5" />
     <MESSAGE value="version 3.2.6" />
@@ -533,6 +606,24 @@
     <MESSAGE value="chore: bump package version to 4.0.0" />
     <MESSAGE value="feat: bump package version to 4.1.0" />
     <MESSAGE value="feat: update response interfaces to extend SmsError" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: update response interfaces to extend SmsError" />
+    <MESSAGE value="fix: update response interfaces to remove SmsError dependency" />
+    <MESSAGE value="refactor: standardize `phoneNumber` parameter formatting and update validation rules" />
+    <MESSAGE value="feat: add bulk SMS sending functionality and related error handling" />
+    <MESSAGE value="feat: add bulk SMS sending functionality and related types" />
+    <MESSAGE value="feat: update npm-publish.yml to add permissions for contents, issues, and pull-requests" />
+    <MESSAGE value="chore: bump version to 4.4.0 in package.json" />
+    <MESSAGE value="feat: update npm-publish.yml for Node.js version 22.x and enhance README with bulk SMS functionality" />
+    <MESSAGE value="chore: bump version to 4.4.2 in package.json" />
+    <MESSAGE value="chore: add chore type to release rules in .releaserc.json" />
+    <MESSAGE value="chore: update package.json and README for semantic-release adjustments; add release.yml for GitHub Actions" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update package.json and README for semantic-release adjustments; add release.yml for GitHub Actions" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>
