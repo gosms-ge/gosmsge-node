@@ -1,0 +1,216 @@
+name: Release and Publish
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Test on Node.js ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: npm run build
+
+  release:
+    name: Analyze and Tag
+    needs: test
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    outputs:
+      new_version: ${{ steps.bump.outputs.new_version }}
+      released: ${{ steps.bump.outputs.released }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Determine version bump
+        id: bump
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+          if [ -z "$LAST_TAG" ]; then
+            echo "No previous tag found. Using all commits."
+            COMMITS=$(git log --pretty=format:"%s" --no-merges)
+            COMMITS_BODY=$(git log --pretty=format:"%b" --no-merges)
+          else
+            echo "Last tag: $LAST_TAG"
+            COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"%s" --no-merges)
+            COMMITS_BODY=$(git log ${LAST_TAG}..HEAD --pretty=format:"%b" --no-merges)
+          fi
+
+          if [ -z "$COMMITS" ]; then
+            echo "No new commits since last tag."
+            echo "released=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Commits since last tag:"
+          echo "$COMMITS"
+
+          BUMP="none"
+
+          if echo "$COMMITS_BODY" | grep -q "BREAKING CHANGE"; then
+            BUMP="major"
+          elif echo "$COMMITS" | grep -qE "^[a-z]+(\(.+\))?!:"; then
+            BUMP="major"
+          elif echo "$COMMITS" | grep -qE "^feat(\(.+\))?:"; then
+            BUMP="minor"
+          elif echo "$COMMITS" | grep -qE "^(fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?:"; then
+            BUMP="patch"
+          fi
+
+          if [ "$BUMP" = "none" ]; then
+            echo "No conventional commits found. Skipping release."
+            echo "released=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Determined bump type: $BUMP"
+
+          NEW_VERSION=$(npm version $BUMP --no-git-tag-version)
+          NEW_VERSION=${NEW_VERSION#v}
+
+          echo "New version: $NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+          echo "released=true" >> "$GITHUB_OUTPUT"
+
+      - name: Generate changelog entry
+        if: steps.bump.outputs.released == 'true'
+        run: |
+          NEW_VERSION=${{ steps.bump.outputs.new_version }}
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          DATE=$(date +%Y-%m-%d)
+
+          ENTRY="## [$NEW_VERSION](https://github.com/${{ github.repository }}/compare/${LAST_TAG}...v${NEW_VERSION}) ($DATE)"
+          ENTRY="$ENTRY"$'\n'
+
+          if [ -n "$LAST_TAG" ]; then
+            COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"%H %s" --no-merges)
+          else
+            COMMITS=$(git log --pretty=format:"%H %s" --no-merges)
+          fi
+
+          FEATS=""
+          FIXES=""
+          OTHERS=""
+
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            HASH=$(echo "$line" | cut -d' ' -f1)
+            SHORT_HASH=${HASH:0:7}
+            MSG=$(echo "$line" | cut -d' ' -f2-)
+            LINK="[${SHORT_HASH}](https://github.com/${{ github.repository }}/commit/${HASH})"
+            DISPLAY_MSG=$(echo "$MSG" | sed -E 's/^[a-z]+(\([^)]+\))?:\s*//')
+
+            case "$MSG" in
+              feat*) FEATS="$FEATS"$'\n'"* $DISPLAY_MSG ($LINK)" ;;
+              fix*) FIXES="$FIXES"$'\n'"* $DISPLAY_MSG ($LINK)" ;;
+              *) OTHERS="$OTHERS"$'\n'"* $DISPLAY_MSG ($LINK)" ;;
+            esac
+          done <<< "$COMMITS"
+
+          [ -n "$FEATS" ] && ENTRY="$ENTRY"$'\n'"### Features"$'\n'"$FEATS"$'\n'
+          [ -n "$FIXES" ] && ENTRY="$ENTRY"$'\n'"### Bug Fixes"$'\n'"$FIXES"$'\n'
+          [ -n "$OTHERS" ] && ENTRY="$ENTRY"$'\n'"### Other Changes"$'\n'"$OTHERS"$'\n'
+
+          if [ -f CHANGELOG.md ]; then
+            echo "$ENTRY" | cat - CHANGELOG.md > CHANGELOG.tmp
+            mv CHANGELOG.tmp CHANGELOG.md
+          else
+            echo "# Changelog"$'\n\n'"$ENTRY" > CHANGELOG.md
+          fi
+
+      - name: Commit and tag
+        if: steps.bump.outputs.released == 'true'
+        run: |
+          NEW_VERSION=${{ steps.bump.outputs.new_version }}
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add package.json package-lock.json CHANGELOG.md
+          git commit -m "chore(release): ${NEW_VERSION} [skip ci]"
+          git tag -a "v${NEW_VERSION}" -m "Release v${NEW_VERSION}"
+          git push origin HEAD
+          git push origin "v${NEW_VERSION}"
+
+  publish:
+    name: Publish to npm
+    needs: release
+    runs-on: ubuntu-latest
+    if: needs.release.outputs.released == 'true'
+
+    steps:
+      - name: Checkout at tag
+        uses: actions/checkout@v4
+        with:
+          ref: v${{ needs.release.outputs.new_version }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          registry-url: https://registry.npmjs.org/
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.release.outputs.new_version }}
+          name: v${{ needs.release.outputs.new_version }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

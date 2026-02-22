@@ -524,7 +524,7 @@ The test suite covers:
 
 # Versioning & Releases
 
-This project follows [Semantic Versioning](https://semver.org/) and uses automated releases via [semantic-release](https://github.com/semantic-release/semantic-release).
+This project follows [Semantic Versioning](https://semver.org/) with automated releases via GitHub Actions.
 
 ## Commit Convention
 
@@ -532,6 +532,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/) for commit m
 
 - `feat:` - New features (triggers MINOR version bump)
 - `fix:` - Bug fixes (triggers PATCH version bump)
+- `chore:`, `docs:`, `refactor:`, `ci:`, etc. - Other changes (triggers PATCH version bump)
 - `BREAKING CHANGE:` - Breaking changes (triggers MAJOR version bump)
 
 Example:
@@ -545,14 +546,13 @@ fix(validation): correct phone number format validation
 
 Releases are automatically published when commits are pushed to the `master` branch:
 
-1. CI runs tests on Node.js 18, 20, and 22
-2. semantic-release analyzes commits since last release
-3. Version is bumped based on commit types
-4. CHANGELOG.md is automatically generated
-5. Package is published to npm
-6. GitHub release is created with release notes
-
-For complete details, see [VERSIONING.md](./VERSIONING.md).
+1. Tests run on Node.js 18, 20, and 22
+2. Commits since last tag are analyzed for version bump type
+3. Version is bumped in `package.json`
+4. `CHANGELOG.md` is updated
+5. A git tag `vX.Y.Z` is created and pushed
+6. Package is published to npm
+7. GitHub release is created with release notes
 
 # Contributing
 
