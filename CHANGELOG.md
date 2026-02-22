@@ -1,3 +1,9 @@
+## [4.3.0](https://github.com/gosms-ge/gosmsge-node/compare/v4.2.2...v4.3.0) (2026-02-22)
+
+### ✨ Features
+
+* add bulk SMS sending functionality and related types ([bce2aad](https://github.com/gosms-ge/gosmsge-node/commit/bce2aadf055e66eb1543ba2679cee851ce006370))
+
 ## [4.2.2](https://github.com/gosms-ge/gosmsge-node/compare/v4.2.1...v4.2.2) (2025-10-14)
 
 ### ♻️ Code Refactoring
