@@ -1,3 +1,10 @@
+## [4.4.2](https://github.com/gosms-ge/gosmsge-node/compare/v4.4.1...v4.4.2) (2026-02-22)
+
+### Other Changes
+
+* replace semantic-release with tag-based CI/CD pipeline ([0c47d7b](https://github.com/gosms-ge/gosmsge-node/commit/0c47d7bbe26225fd124c3d24d03439e9b99e3fba))
+* replace semantic-release with tag-based CI/CD pipeline ([185161c](https://github.com/gosms-ge/gosmsge-node/commit/185161c2488d3313c7b22eaf7634b4ad1a14356e))
+
 ## [4.4.1](https://github.com/gosms-ge/gosmsge-node/compare/v4.4.0...v4.4.1) (2026-02-22)
 
 ### 🔧 Chores
