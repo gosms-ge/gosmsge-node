@@ -1,3 +1,9 @@
+## [4.6.0](https://github.com/gosms-ge/gosmsge-node/compare/v4.4.2...v4.6.0) (2026-03-02)
+
+### Features
+
+* add OTP rate limit support and update README with usage examples ([9390228](https://github.com/gosms-ge/gosmsge-node/commit/9390228d3dbb20d1a81e089c8e2937399fe86ad6))
+
 ## [4.5.0](https://github.com/gosms-ge/gosmsge-node/compare/v4.4.1...v4.5.0) (2026-02-27)
 
 ### ✨ Features
