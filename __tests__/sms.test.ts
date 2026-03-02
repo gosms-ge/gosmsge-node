@@ -14,6 +14,14 @@ import {
 // Mock global fetch
 global.fetch = jest.fn();
 
+function mockOkResponse(data: unknown, headers?: Headers): Partial<Response> {
+  return { ok: true, json: async () => data, headers: headers ?? new Headers() };
+}
+
+function mockErrorResponse(data: unknown, headers?: Headers): Partial<Response> {
+  return { ok: false, status: 400, json: async () => data, headers: headers ?? new Headers() };
+}
+
 describe('SMS Class', () => {
   const validApiKey = 'test_api_key_123';
   const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>;
@@ -68,10 +76,7 @@ describe('SMS Class', () => {
         smsCharacters: 12,
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       const result = await sms.send('995555123456', 'Test message', 'GOSMS');
 
@@ -107,10 +112,7 @@ describe('SMS Class', () => {
         smsCharacters: 14,
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       await sms.send('995555123456', 'Urgent message', 'GOSMS', true);
 
@@ -167,10 +169,7 @@ describe('SMS Class', () => {
         message: 'Invalid or missing API key',
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        json: async () => mockError,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockErrorResponse(mockError) as Response);
 
       await expect(sms.send('995555123456', 'Test', 'GOSMS')).rejects.toEqual(mockError);
     });
@@ -201,10 +200,7 @@ describe('SMS Class', () => {
         smsCharacters: 20,
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       const result = await sms.sendOtp('995555123456');
 
@@ -236,10 +232,7 @@ describe('SMS Class', () => {
         message: 'Invalid phone number format',
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        json: async () => mockError,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockErrorResponse(mockError) as Response);
 
       await expect(sms.sendOtp('995555123456')).rejects.toEqual(mockError);
     });
@@ -258,10 +251,7 @@ describe('SMS Class', () => {
         verify: true,
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       const result = await sms.verifyOtp('995555123456', 'abc123hash', '1234');
 
@@ -287,10 +277,7 @@ describe('SMS Class', () => {
         verify: false,
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       const result = await sms.verifyOtp('995555123456', 'abc123hash', '9999');
 
@@ -334,10 +321,7 @@ describe('SMS Class', () => {
         message: 'OTP expired',
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        json: async () => mockError,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockErrorResponse(mockError) as Response);
 
       await expect(sms.verifyOtp('995555123456', 'hash', '1234')).rejects.toEqual(mockError);
     });
@@ -364,10 +348,7 @@ describe('SMS Class', () => {
         status: 'DELIVERED',
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       const result = await sms.status('12345');
 
@@ -396,10 +377,7 @@ describe('SMS Class', () => {
         message: 'Message not found',
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        json: async () => mockError,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockErrorResponse(mockError) as Response);
 
       await expect(sms.status('12345')).rejects.toEqual(mockError);
     });
@@ -418,10 +396,7 @@ describe('SMS Class', () => {
         balance: 150.5,
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       const result = await sms.balance();
 
@@ -444,10 +419,7 @@ describe('SMS Class', () => {
         message: 'Invalid or missing API key',
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        json: async () => mockError,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockErrorResponse(mockError) as Response);
 
       await expect(sms.balance()).rejects.toEqual(mockError);
     });
@@ -471,10 +443,7 @@ describe('SMS Class', () => {
         success: true,
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       const result = await sms.createSender('MyCompany');
 
@@ -498,10 +467,7 @@ describe('SMS Class', () => {
         message: 'Sender name already exists',
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        json: async () => mockError,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockErrorResponse(mockError) as Response);
 
       await expect(sms.createSender('ExistingSender')).rejects.toEqual(mockError);
     });
@@ -538,10 +504,7 @@ describe('SMS Class', () => {
         ],
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       const result = await sms.sendBulk('GOSMS', ['995555111111', '995555222222'], 'Bulk message');
 
@@ -582,10 +545,7 @@ describe('SMS Class', () => {
         ],
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       const result = await sms.sendBulk('GOSMS', ['995555111111', '995555000000'], 'Test');
 
@@ -619,10 +579,7 @@ describe('SMS Class', () => {
         message: 'Insufficient SMS balance',
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        json: async () => mockError,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockErrorResponse(mockError) as Response);
 
       await expect(sms.sendBulk('GOSMS', ['995555111111'], 'Test')).rejects.toEqual(mockError);
     });
@@ -642,10 +599,7 @@ describe('SMS Class', () => {
         messages: [{ messageId: 300, to: '995555111111', success: true }],
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       await sms.sendBulk('GOSMS', ['995555111111'], 'Ad', false, '0000');
 
@@ -697,10 +651,7 @@ describe('SMS Class', () => {
         balance: 100,
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       await sms.balance();
 
@@ -719,10 +670,7 @@ describe('SMS Class', () => {
         balance: 100,
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockResponse,
-      } as Response);
+      mockFetch.mockResolvedValueOnce(mockOkResponse(mockResponse) as Response);
 
       await sms.balance();
 

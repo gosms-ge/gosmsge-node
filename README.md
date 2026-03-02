@@ -112,6 +112,12 @@ sms
     console.log('OTP sent successfully');
     console.log('Hash:', body.hash); // Save this hash for verification
     console.log('Balance:', body.balance);
+
+    // Rate limit info (available since v4.5.0)
+    if (body.rateLimitInfo) {
+      console.log('Remaining attempts:', body.rateLimitInfo.remaining);
+      console.log('Max attempts:', body.rateLimitInfo.limit);
+    }
   })
   .catch(err => console.log('Error:', err.message));
 ```
@@ -131,6 +137,11 @@ sms
       console.log('OTP verified successfully');
     } else {
       console.log('Invalid OTP code');
+    }
+
+    // Rate limit info
+    if (body.rateLimitInfo) {
+      console.log('Remaining attempts:', body.rateLimitInfo.remaining);
     }
   })
   .catch(err => console.log('Error:', err.message));
@@ -179,6 +190,28 @@ async function sendMessage() {
 }
 
 sendMessage();
+```
+
+## Rate Limit Error Handling
+
+When OTP rate limits are exceeded, the error includes `retryAfter` (seconds until lockout expires):
+
+```typescript
+import { SMS, SmsError, GoSmsErrorCode } from '@gosmsge/gosmsge-node';
+
+const sms = new SMS('your_api_key');
+
+try {
+  const result = await sms.sendOtp('995555555555');
+  console.log('Remaining attempts:', result.rateLimitInfo?.remaining);
+} catch (error) {
+  const smsError = error as SmsError;
+  if (smsError.errorCode === GoSmsErrorCode.TOO_MANY_REQUESTS) {
+    console.error(`Too many attempts. Retry after ${smsError.retryAfter}s`);
+  } else if (smsError.errorCode === GoSmsErrorCode.ACCOUNT_LOCKED) {
+    console.error(`Account locked. Retry after ${smsError.retryAfter}s`);
+  }
+}
 ```
 
 # API Reference
@@ -262,13 +295,13 @@ result.messages.forEach(msg => {
 
 ### `sendOtp(phoneNumber: string): Promise<OtpSendResponse>`
 
-Sends an OTP (One-Time Password) SMS message.
+Sends an OTP (One-Time Password) SMS message. Returns rate limit information via `rateLimitInfo`.
 
 **Parameters:**
 
 - `phoneNumber` (string, required) - Phone number to send OTP to
 
-**Returns:** Promise resolving to `OtpSendResponse` with hash for verification
+**Returns:** Promise resolving to `OtpSendResponse` with hash for verification and rate limit info
 
 **Example:**
 
@@ -276,11 +309,16 @@ Sends an OTP (One-Time Password) SMS message.
 const result = await sms.sendOtp('995555555555');
 console.log('OTP Hash:', result.hash); // Save this for verification
 console.log('Balance:', result.balance);
+
+// Check rate limit
+if (result.rateLimitInfo) {
+  console.log(`Attempts: ${result.rateLimitInfo.remaining}/${result.rateLimitInfo.limit}`);
+}
 ```
 
 ### `verifyOtp(phoneNumber: string, hash: string, code: string): Promise<OtpVerifyResponse>`
 
-Verifies an OTP code sent to a phone number.
+Verifies an OTP code sent to a phone number. Returns rate limit information via `rateLimitInfo`.
 
 **Parameters:**
 
@@ -288,7 +326,7 @@ Verifies an OTP code sent to a phone number.
 - `hash` (string, required) - Hash received from `sendOtp()` response
 - `code` (string, required) - OTP code entered by the user
 
-**Returns:** Promise resolving to `OtpVerifyResponse` with verify boolean
+**Returns:** Promise resolving to `OtpVerifyResponse` with verify boolean and rate limit info
 
 **Example:**
 
@@ -299,6 +337,7 @@ if (result.verify) {
 } else {
   console.log('Invalid OTP code');
 }
+console.log('Remaining attempts:', result.rateLimitInfo?.remaining);
 ```
 
 ### `status(messageId: string): Promise<CheckStatusResponse>`
@@ -413,6 +452,7 @@ if (result.success) {
   segment: number;
   smsCharacters: number;
   encode: string;
+  rateLimitInfo?: RateLimitInfo;
 }
 ```
 
@@ -422,6 +462,19 @@ if (result.success) {
 {
   success: boolean;
   verify: boolean;
+  rateLimitInfo?: RateLimitInfo;
+}
+```
+
+### `RateLimitInfo`
+
+Rate limit information extracted from OTP endpoint response headers.
+
+```typescript
+{
+  limit?: number;      // Maximum attempts allowed
+  remaining?: number;  // Attempts remaining
+  retryAfter?: number; // Seconds until lockout expires (only on error)
 }
 ```
 
@@ -465,6 +518,7 @@ if (result.success) {
 {
   errorCode?: number;
   message?: string;
+  retryAfter?: number; // Seconds until lockout expires (for error codes 109, 110)
 }
 ```
 
@@ -568,7 +622,7 @@ Quick start for contributors:
 
 ```bash
 # Fork and clone the repository
-git clone https://github.com/YOUR_USERNAME/gosmsge-node.git
+git clone https://github.com/gosms-ge/gosmsge-node.git
 cd gosmsge-node
 
 # Install dependencies
@@ -583,4 +637,4 @@ npm run build
 
 # More info
 
-You can check out our website https://www.gosms.ge
+You can check out our website https://gosms.ge

@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="chore: update package.json and README for semantic-release adjustments; add release.yml for GitHub Actions">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/release.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/npm-publish.yml" beforeDir="false" />
+    <list default="true" id="21ac3cc8-a61d-4881-8834-dbb3d9a28466" name="Default Changelist" comment="ci: replace semantic-release with tag-based CI/CD pipeline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.releaserc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/sms.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/sms.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +22,10 @@
     <persistenceIdMap>
       <entry key="_/Users/levanjmukhadze/Projects/gosms/gosmsge-node" value="1buG61xYigeAaPxXydA7fXBqwAH" />
     </persistenceIdMap>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="87" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,6 +46,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -56,42 +64,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Jest.Integration Tests.Performance and Load.should handle rapid-fire requests.executor&quot;: &quot;Run&quot;,
-    &quot;Jest.Integration Tests.executor&quot;: &quot;Run&quot;,
-    &quot;Jest.SMS Class.send() method.should throw TypeError if phoneNumber is not provided.executor&quot;: &quot;Run&quot;,
-    &quot;Jest.SMS Class.send() method.should throw TypeError if senderName is not a string.executor&quot;: &quot;Run&quot;,
-    &quot;Jest.SMS Class.send() method.should throw TypeError if senderName is not provided.executor&quot;: &quot;Run&quot;,
-    &quot;Jest.SMS Class.send() method.should throw TypeError if text is not provided.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.google.cloudcode.ide_session_index&quot;: &quot;20260222_0000&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/levanjmukhadze/Projects/gosms/gosmsge-node&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs.jest.jest_package&quot;: &quot;/Users/levanjmukhadze/Projects/gosms/gosmsge-node/node_modules/jest&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;npm.format.executor&quot;: &quot;Run&quot;,
-    &quot;npm.format:check.executor&quot;: &quot;Run&quot;,
-    &quot;npm.lint:fix.executor&quot;: &quot;Run&quot;,
-    &quot;npm.semantic-release.executor&quot;: &quot;Run&quot;,
-    &quot;npm.test.executor&quot;: &quot;Run&quot;,
-    &quot;npm.test:coverage.executor&quot;: &quot;Run&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/levanjmukhadze/Projects/gosms/gosmsge-node/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Jest.Integration Tests.Performance and Load.should handle rapid-fire requests.executor": "Run",
+    "Jest.Integration Tests.executor": "Run",
+    "Jest.SMS Class.send() method.should throw TypeError if phoneNumber is not provided.executor": "Run",
+    "Jest.SMS Class.send() method.should throw TypeError if senderName is not a string.executor": "Run",
+    "Jest.SMS Class.send() method.should throw TypeError if senderName is not provided.executor": "Run",
+    "Jest.SMS Class.send() method.should throw TypeError if text is not provided.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.google.cloudcode.ide_session_index": "20260302_0000",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/levanjmukhadze/Projects/gosms/gosmsge-node",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs.jest.jest_package": "/Users/levanjmukhadze/Projects/gosms/gosmsge-node/node_modules/jest",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev.executor": "Run",
+    "npm.format.executor": "Run",
+    "npm.format:check.executor": "Run",
+    "npm.lint:fix.executor": "Run",
+    "npm.semantic-release.executor": "Run",
+    "npm.test.executor": "Run",
+    "npm.test:coverage.executor": "Run",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "/Users/levanjmukhadze/Projects/gosms/gosmsge-node/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\gosms\gosmsge-node\examples" />
@@ -177,7 +187,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-WS-252.23892.411" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.31033.133" />
       </set>
     </attachedChunks>
   </component>
@@ -207,7 +217,9 @@
       <workItem from="1702341921014" duration="673000" />
       <workItem from="1760124257988" duration="6711000" />
       <workItem from="1760449194390" duration="1561000" />
-      <workItem from="1771779797853" duration="4150000" />
+      <workItem from="1771779797853" duration="5031000" />
+      <workItem from="1771971977688" duration="2000" />
+      <workItem from="1772464353292" duration="1352000" />
     </task>
     <task id="LOCAL-00001" summary="feat(API-endpoint): change endpoint">
       <created>1602462640667</created>
@@ -549,7 +561,23 @@
       <option name="project" value="LOCAL" />
       <updated>1771783316387</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="ci: replace semantic-release with tag-based CI/CD pipeline">
+      <option name="closed" value="true" />
+      <created>1771784608929</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1771784608929</updated>
+    </task>
+    <task id="LOCAL-00049" summary="ci: replace semantic-release with tag-based CI/CD pipeline">
+      <option name="closed" value="true" />
+      <created>1771784681592</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1771784681592</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -591,7 +619,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="version 3.2.4" />
     <MESSAGE value="version 3.2.5" />
     <MESSAGE value="version 3.2.6" />
     <MESSAGE value="node16" />
@@ -616,7 +643,8 @@
     <MESSAGE value="chore: bump version to 4.4.2 in package.json" />
     <MESSAGE value="chore: add chore type to release rules in .releaserc.json" />
     <MESSAGE value="chore: update package.json and README for semantic-release adjustments; add release.yml for GitHub Actions" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: update package.json and README for semantic-release adjustments; add release.yml for GitHub Actions" />
+    <MESSAGE value="ci: replace semantic-release with tag-based CI/CD pipeline" />
+    <option name="LAST_COMMIT_MESSAGE" value="ci: replace semantic-release with tag-based CI/CD pipeline" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

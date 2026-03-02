@@ -8,6 +8,7 @@ import {
   MessageId,
   OtpSendResponse,
   OtpVerifyResponse,
+  RateLimitInfo,
   SendBulkSmsResponse,
   SenderCreateResponse,
   SmsError,
@@ -104,6 +105,26 @@ const SMS: SMSInterface = class SMS implements ISMS {
   }
 
   /**
+   * Extracts rate limit info from response headers
+   * @private
+   */
+  private extractRateLimitInfo(headers: Headers): RateLimitInfo | undefined {
+    const limit = headers.get('X-RateLimit-Limit');
+    const remaining = headers.get('X-RateLimit-Remaining');
+    const retryAfter = headers.get('Retry-After');
+
+    if (limit === null && remaining === null && retryAfter === null) {
+      return undefined;
+    }
+
+    return {
+      limit: limit ? parseInt(limit, 10) : undefined,
+      remaining: remaining ? parseInt(remaining, 10) : undefined,
+      retryAfter: retryAfter ? parseInt(retryAfter, 10) : undefined,
+    };
+  }
+
+  /**
    * Centralized HTTP request handler with retry logic
    * @private
    */
@@ -111,7 +132,7 @@ const SMS: SMSInterface = class SMS implements ISMS {
     endpoint: string,
     data: Record<string, unknown>,
     method: 'GET' | 'POST' = 'POST'
-  ): Promise<T> {
+  ): Promise<{ data: T; headers: Headers }> {
     let lastError: unknown;
 
     for (let attempt = 1; attempt <= this.retries; attempt++) {
@@ -134,12 +155,17 @@ const SMS: SMSInterface = class SMS implements ISMS {
 
         if (!response.ok) {
           this.log(`Request failed with status ${response.status}:`, responseData);
+          const errorData = responseData as SmsError;
+          const retryAfterHeader = response.headers.get('Retry-After');
+          if (retryAfterHeader) {
+            errorData.retryAfter = parseInt(retryAfterHeader, 10);
+          }
           // eslint-disable-next-line @typescript-eslint/only-throw-error
-          throw responseData;
+          throw errorData;
         }
 
         this.log('Request successful:', responseData);
-        return responseData as T;
+        return { data: responseData as T, headers: response.headers };
       } catch (err) {
         lastError = err;
         this.log(`Attempt ${attempt} failed:`, err);
@@ -182,13 +208,14 @@ const SMS: SMSInterface = class SMS implements ISMS {
     this.validateString(text, 'text', 'Second');
     this.validateString(senderName, 'senderName', 'Third');
 
-    return this.makeRequest<SmsSendResponse>('sendsms', {
+    const { data } = await this.makeRequest<SmsSendResponse>('sendsms', {
       api_key: this.apiKey,
       to: phoneNumber,
       from: senderName,
       text: text,
       urgent: urgent,
     });
+    return data;
   }
 
   /**
@@ -234,7 +261,8 @@ const SMS: SMSInterface = class SMS implements ISMS {
       payload.noSmsNumber = noSmsNumber;
     }
 
-    return this.makeRequest<SendBulkSmsResponse>('sendbulk', payload);
+    const { data } = await this.makeRequest<SendBulkSmsResponse>('sendbulk', payload);
+    return data;
   }
 
   /**
@@ -252,10 +280,12 @@ const SMS: SMSInterface = class SMS implements ISMS {
   async sendOtp(phoneNumber: string): Promise<OtpSendResponse> {
     this.validatePhoneNumber(phoneNumber, 'phoneNumber');
 
-    return this.makeRequest<OtpSendResponse>('otp/send', {
+    const { data, headers } = await this.makeRequest<OtpSendResponse>('otp/send', {
       api_key: this.apiKey,
       phone: phoneNumber,
     });
+    data.rateLimitInfo = this.extractRateLimitInfo(headers);
+    return data;
   }
 
   /**
@@ -280,12 +310,14 @@ const SMS: SMSInterface = class SMS implements ISMS {
     this.validateString(hash, 'hash', 'Second');
     this.validateString(code, 'code', 'Third');
 
-    return this.makeRequest<OtpVerifyResponse>('otp/verify', {
+    const { data, headers } = await this.makeRequest<OtpVerifyResponse>('otp/verify', {
       api_key: this.apiKey,
       phone: phoneNumber,
       hash: hash,
       code: code,
     });
+    data.rateLimitInfo = this.extractRateLimitInfo(headers);
+    return data;
   }
 
   /**
@@ -306,10 +338,11 @@ const SMS: SMSInterface = class SMS implements ISMS {
       throw new TypeError('Message Id is required, it must be a string');
     }
 
-    return this.makeRequest<CheckStatusResponse>('checksms', {
+    const { data } = await this.makeRequest<CheckStatusResponse>('checksms', {
       api_key: this.apiKey,
       messageId: messageId,
     });
+    return data;
   }
 
   /**
@@ -322,9 +355,10 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * ```
    */
   async balance(): Promise<BalanceResponse> {
-    return this.makeRequest<BalanceResponse>('sms-balance', {
+    const { data } = await this.makeRequest<BalanceResponse>('sms-balance', {
       api_key: this.apiKey,
     });
+    return data;
   }
 
   /**
@@ -343,10 +377,11 @@ const SMS: SMSInterface = class SMS implements ISMS {
    * ```
    */
   async createSender(name: string): Promise<SenderCreateResponse> {
-    return this.makeRequest<SenderCreateResponse>('sender', {
+    const { data } = await this.makeRequest<SenderCreateResponse>('sender', {
       api_key: this.apiKey,
       name: name,
     });
+    return data;
   }
 };
 
@@ -360,6 +395,7 @@ export {
   CheckStatusResponse,
   OtpSendResponse,
   OtpVerifyResponse,
+  RateLimitInfo,
   SenderCreateResponse,
   SmsError,
   ErrorMessageCode,

@@ -114,16 +114,25 @@ export interface OtpSendResponse extends SmsError {
   encode: string;
   segment: number;
   smsCharacters: number;
+  rateLimitInfo?: RateLimitInfo;
 }
 
 export interface OtpVerifyResponse extends SmsError {
   success: boolean;
   verify: boolean;
+  rateLimitInfo?: RateLimitInfo;
 }
 
 export interface SmsError {
   errorCode?: ErrorMessageCode;
   message?: string;
+  retryAfter?: number;
+}
+
+export interface RateLimitInfo {
+  limit?: number;
+  remaining?: number;
+  retryAfter?: number;
 }
 
 export interface SenderCreateResponse extends SmsError {

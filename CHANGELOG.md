@@ -1,3 +1,12 @@
+## [4.5.0](https://github.com/gosms-ge/gosmsge-node/compare/v4.4.1...v4.5.0) (2026-02-27)
+
+### ✨ Features
+
+* add OTP rate limit headers support to `sendOtp()` and `verifyOtp()` responses via `rateLimitInfo` field
+* add `RateLimitInfo` interface with `limit`, `remaining`, and `retryAfter` fields
+* add `retryAfter` field to `SmsError` interface for rate limit error handling (error codes 109, 110)
+* export `RateLimitInfo` type from package
+
 ## [4.4.2](https://github.com/gosms-ge/gosmsge-node/compare/v4.4.1...v4.4.2) (2026-02-22)
 
 ### Other Changes
